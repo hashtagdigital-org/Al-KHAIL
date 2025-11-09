@@ -42,25 +42,9 @@ All colors MUST be HSL.
     --brand-red: 358 70% 41%;
     --brand-dark: 0 0% 17%;
     --brand-gray: 0 0% 35%;
-    
-    /* Modern gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(0 0% 17%) 0%, hsl(0 0% 8%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(358 70% 41%) 0%, hsl(358 70% 35%) 100%);
-    --gradient-luxury: linear-gradient(135deg, hsl(43 65% 52%) 0%, hsl(43 65% 45%) 100%);
-    --gradient-overlay: linear-gradient(135deg, rgba(44, 44, 44, 0.95) 0%, rgba(0, 0, 0, 0.85) 100%);
-    
-    /* Modern shadows */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
-    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
-    --shadow-accent: 0 8px 32px rgba(179, 32, 37, 0.2);
-    --shadow-glow: 0 0 40px rgba(179, 32, 37, 0.15);
-    
-    /* Modern transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --hero-gradient: linear-gradient(135deg, hsl(0 0% 17%) 0%, hsl(0 0% 0%) 100%);
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --card-shadow-hover: 0 8px 30px rgba(179, 32, 37, 0.15);
 
     --sidebar-background: 0 0% 98%;
 
@@ -126,41 +110,5 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-  }
-  
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
-@layer utilities {
-  .glass-effect {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  .text-gradient-accent {
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .text-gradient-luxury {
-    background: var(--gradient-luxury);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .card-hover {
-    transition: var(--transition-smooth);
-  }
-  
-  .card-hover:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-xl);
   }
 }
