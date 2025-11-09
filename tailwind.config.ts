@@ -59,7 +59,11 @@ export default {
         },
         luxury: {
           gold: "hsl(var(--luxury-gold))",
-          navy: "hsl(var(--luxury-navy))",
+        },
+        brand: {
+          red: "hsl(var(--brand-red))",
+          dark: "hsl(var(--brand-dark))",
+          gray: "hsl(var(--brand-gray))",
         },
       },
       borderRadius: {
