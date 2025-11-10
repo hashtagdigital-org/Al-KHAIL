@@ -1,8 +1,11 @@
 import { Linkedin, Mail, MessageCircle, Award, TrendingUp, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
 
 const TeamSection = () => {
+  const [showAll, setShowAll] = useState(false);
+  
   const team = [
     {
       name: "Hadi Dehghan",
@@ -40,7 +43,45 @@ const TeamSection = () => {
       properties: "300+",
       rating: "4.9"
     },
+    {
+      name: "Ahmed Hassan",
+      role: "Property Consultant",
+      specialty: "Residential & Commercial Property Expert",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
+      linkedin: "#",
+      whatsapp: "#",
+      email: "ahmed@alkhail.com",
+      experience: "8+ Years",
+      properties: "250+",
+      rating: "4.8"
+    },
+    {
+      name: "Sara Al-Mansouri",
+      role: "Luxury Property Specialist",
+      specialty: "High-End Properties & Investor Relations",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop",
+      linkedin: "#",
+      whatsapp: "#",
+      email: "sara@alkhail.com",
+      experience: "12+ Years",
+      properties: "380+",
+      rating: "4.9"
+    },
+    {
+      name: "Omar Abdullah",
+      role: "Investment Consultant",
+      specialty: "ROI Analysis & Portfolio Management",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
+      linkedin: "#",
+      whatsapp: "#",
+      email: "omar@alkhail.com",
+      experience: "14+ Years",
+      properties: "420+",
+      rating: "4.8"
+    },
   ];
+
+  const displayedTeam = showAll ? team : team.slice(0, 3);
 
   return (
     <section id="team" className="py-24 bg-white">
@@ -59,7 +100,7 @@ const TeamSection = () => {
 
         {/* Team Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mb-16">
-          {team.map((member, index) => (
+          {displayedTeam.map((member, index) => (
             <div
               key={index}
               className="group animate-fade-in"
@@ -180,9 +221,11 @@ const TeamSection = () => {
         <div className="text-center animate-fade-in" style={{ animationDelay: '600ms' }}>
           <Button
             size="lg"
-            className="bg-brand-red hover:bg-brand-red/90 text-white px-8 py-6 text-base font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            onClick={() => setShowAll(!showAll)}
+            className="bg-brand-red hover:bg-brand-red/90 text-white px-8 py-6 text-base font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group"
           >
-            Work With Us
+            {showAll ? "Show Less Agents" : "See More Agents"}
+            <ArrowRight className={`w-5 h-5 ml-2 transition-transform duration-300 ${showAll ? 'rotate-180' : 'group-hover:translate-x-1'}`} />
           </Button>
         </div>
       </div>
