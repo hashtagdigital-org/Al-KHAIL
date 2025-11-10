@@ -1,84 +1,20 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Calendar, MapPin, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import EventDetailDialog from "@/components/EventDetailDialog";
-import eventOpenHouse from "@/assets/event-open-house.jpg";
-import eventExhibition from "@/assets/event-exhibition.jpg";
-import eventPropertyLaunch from "@/assets/event-property-launch.jpg";
-import eventPenthouse from "@/assets/event-penthouse.jpg";
-import eventTeamGathering from "@/assets/event-team-gathering.jpg";
-import eventVillaViewing from "@/assets/event-villa-viewing.jpg";
-
-const events = [
-  {
-    id: 1,
-    title: "Downtown Dubai Open House",
-    date: "March 15, 2025",
-    location: "Burj Khalifa District, Dubai",
-    image: eventOpenHouse,
-    category: "upcoming",
-    type: "Open House"
-  },
-  {
-    id: 2,
-    title: "Luxury Real Estate Exhibition",
-    date: "March 22, 2025",
-    location: "Dubai World Trade Centre",
-    image: eventExhibition,
-    category: "upcoming",
-    type: "Exhibition"
-  },
-  {
-    id: 3,
-    title: "Marina Residence Launch",
-    date: "April 5, 2025",
-    location: "Dubai Marina",
-    image: eventPropertyLaunch,
-    category: "upcoming",
-    type: "Property Launch"
-  },
-  {
-    id: 4,
-    title: "Palm Jumeirah Penthouse Viewing",
-    date: "February 28, 2025",
-    location: "Palm Jumeirah, Dubai",
-    image: eventPenthouse,
-    category: "past",
-    type: "Exclusive Viewing"
-  },
-  {
-    id: 5,
-    title: "Annual Team Excellence Gala",
-    date: "February 14, 2025",
-    location: "Burj Al Arab, Dubai",
-    image: eventTeamGathering,
-    category: "past",
-    type: "Team Gathering"
-  },
-  {
-    id: 6,
-    title: "Emirates Hills Villa Showcase",
-    date: "January 20, 2025",
-    location: "Emirates Hills, Dubai",
-    image: eventVillaViewing,
-    category: "past",
-    type: "Open House"
-  }
-];
+import { events } from "@/data/events";
 
 const EventsSection = () => {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState<"all" | "upcoming" | "past">("all");
-  const [selectedEvent, setSelectedEvent] = useState<typeof events[0] | null>(null);
-  const [dialogOpen, setDialogOpen] = useState(false);
 
   const filteredEvents = activeFilter === "all" 
     ? events 
     : events.filter(event => event.category === activeFilter);
 
-  const handleViewDetails = (event: typeof events[0]) => {
-    setSelectedEvent(event);
-    setDialogOpen(true);
+  const handleViewDetails = (slug: string) => {
+    navigate(`/event/${slug}`);
   };
 
   return (
@@ -179,7 +115,7 @@ const EventsSection = () => {
                   variant="outline"
                   className="w-full group/btn border-[hsl(var(--accent))]/30 hover:bg-[hsl(var(--accent))] hover:text-white hover:border-[hsl(var(--accent))] transition-all duration-300 h-12"
                   size="lg"
-                  onClick={() => handleViewDetails(event)}
+                  onClick={() => handleViewDetails(event.slug)}
                 >
                   <span className="font-semibold">View Details</span>
                   <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-2 transition-transform duration-300" />
@@ -201,13 +137,6 @@ const EventsSection = () => {
           </div>
         )}
       </div>
-
-      {/* Event Detail Dialog */}
-      <EventDetailDialog 
-        event={selectedEvent}
-        open={dialogOpen}
-        onOpenChange={setDialogOpen}
-      />
     </section>
   );
 };
