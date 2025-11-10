@@ -34,13 +34,19 @@ const registrationSchema = z.object({
     .trim()
     .email({ message: "Invalid email address" })
     .max(255, { message: "Email must be less than 255 characters" }),
-  phone: z
+  countryCode: z
     .string()
     .trim()
-    .min(10, { message: "Phone number must be at least 10 digits" })
-    .max(20, { message: "Phone number must be less than 20 digits" })
-    .regex(/^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/, {
-      message: "Invalid phone number format",
+    .regex(/^\+[0-9]{1,4}$/, {
+      message: "Invalid country code (e.g., +971, +1)",
+    }),
+  phoneNumber: z
+    .string()
+    .trim()
+    .min(7, { message: "Phone number must be at least 7 digits" })
+    .max(15, { message: "Phone number must be less than 15 digits" })
+    .regex(/^[0-9\s]+$/, {
+      message: "Phone number must contain only digits",
     }),
   numberOfGuests: z
     .number()
@@ -77,7 +83,8 @@ const EventRegistrationDialog = ({
     defaultValues: {
       fullName: "",
       email: "",
-      phone: "",
+      countryCode: "+971",
+      phoneNumber: "",
       numberOfGuests: 1,
       specialRequests: "",
     },
@@ -151,19 +158,42 @@ const EventRegistrationDialog = ({
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone Number *</FormLabel>
-                  <FormControl>
-                    <Input type="tel" placeholder="+971 50 123 4567" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-3 gap-4">
+              <FormField
+                control={form.control}
+                name="countryCode"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Code *</FormLabel>
+                    <FormControl>
+                      <Input type="text" placeholder="+971" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="phoneNumber"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormLabel>Phone Number *</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="tel" 
+                        placeholder="50 123 4567" 
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/[^0-9\s]/g, '');
+                          field.onChange(value);
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <FormField
               control={form.control}
