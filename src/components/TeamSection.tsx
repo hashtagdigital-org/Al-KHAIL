@@ -2,86 +2,13 @@ import { Linkedin, Mail, MessageCircle, Award, TrendingUp, ArrowRight } from "lu
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { agents } from "@/data/agents";
 
 const TeamSection = () => {
   const [showAll, setShowAll] = useState(false);
-  
-  const team = [
-    {
-      name: "Hadi Dehghan",
-      role: "CEO",
-      specialty: "Luxury Property Investment & Multilingual Service",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop",
-      linkedin: "#",
-      whatsapp: "#",
-      email: "hadi@alkhail.com",
-      experience: "18+ Years",
-      properties: "500+",
-      rating: "4.9"
-    },
-    {
-      name: "Nasser Dehghan",
-      role: "Managing Director",
-      specialty: "Strategic Sales & Leasing Expert",
-      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop",
-      linkedin: "#",
-      whatsapp: "#",
-      email: "nasser@alkhail.com",
-      experience: "15+ Years",
-      properties: "450+",
-      rating: "4.8"
-    },
-    {
-      name: "Mohanned Mohamed",
-      role: "Senior Property Consultant",
-      specialty: "Client Success & Market Analysis Specialist",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-      linkedin: "#",
-      whatsapp: "#",
-      email: "mohanned@alkhail.com",
-      experience: "10+ Years",
-      properties: "300+",
-      rating: "4.9"
-    },
-    {
-      name: "Ahmed Hassan",
-      role: "Property Consultant",
-      specialty: "Residential & Commercial Property Expert",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
-      linkedin: "#",
-      whatsapp: "#",
-      email: "ahmed@alkhail.com",
-      experience: "8+ Years",
-      properties: "250+",
-      rating: "4.8"
-    },
-    {
-      name: "Sara Al-Mansouri",
-      role: "Luxury Property Specialist",
-      specialty: "High-End Properties & Investor Relations",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop",
-      linkedin: "#",
-      whatsapp: "#",
-      email: "sara@alkhail.com",
-      experience: "12+ Years",
-      properties: "380+",
-      rating: "4.9"
-    },
-    {
-      name: "Omar Abdullah",
-      role: "Investment Consultant",
-      specialty: "ROI Analysis & Portfolio Management",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
-      linkedin: "#",
-      whatsapp: "#",
-      email: "omar@alkhail.com",
-      experience: "14+ Years",
-      properties: "420+",
-      rating: "4.8"
-    },
-  ];
 
-  const displayedTeam = showAll ? team : team.slice(0, 3);
+  const displayedTeam = showAll ? agents : agents.slice(0, 3);
 
   return (
     <section id="team" className="py-24 bg-white">
@@ -197,12 +124,14 @@ const TeamSection = () => {
                   <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
                   
                   {/* Show More Button */}
-                  <Button 
-                    className="w-full bg-gradient-to-r from-brand-red to-brand-red/90 hover:from-brand-red/90 hover:to-brand-red text-white font-semibold py-6 rounded-xl shadow-lg shadow-brand-red/20 hover:shadow-xl hover:shadow-brand-red/30 transition-all duration-300 group/btn"
-                  >
-                    <span>View Agent Profile</span>
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                  </Button>
+                  <Link to={`/agent/${member.id}`}>
+                    <Button 
+                      className="w-full bg-gradient-to-r from-brand-red to-brand-red/90 hover:from-brand-red/90 hover:to-brand-red text-white font-semibold py-6 rounded-xl shadow-lg shadow-brand-red/20 hover:shadow-xl hover:shadow-brand-red/30 transition-all duration-300 group/btn"
+                    >
+                      <span>View Agent Profile</span>
+                      <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                    </Button>
+                  </Link>
                   
                   {/* Quick Contact Link */}
                   <a 

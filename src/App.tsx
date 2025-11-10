@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import EventLanding from "./pages/EventLanding";
 import PropertyLanding from "./pages/PropertyLanding";
+import AgentLanding from "./pages/AgentLanding";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/event/:slug" element={<EventLanding />} />
           <Route path="/property/:slug" element={<PropertyLanding />} />
+          <Route path="/agent/:agentId" element={<AgentLanding />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
