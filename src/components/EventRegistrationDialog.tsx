@@ -31,7 +31,18 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 
+// Popular countries first, then alphabetical
 const countryCodes = [
+  { code: "+971", country: "🇦🇪 United Arab Emirates", popular: true },
+  { code: "+966", country: "🇸🇦 Saudi Arabia", popular: true },
+  { code: "+965", country: "🇰🇼 Kuwait", popular: true },
+  { code: "+974", country: "🇶🇦 Qatar", popular: true },
+  { code: "+968", country: "🇴🇲 Oman", popular: true },
+  { code: "+973", country: "🇧🇭 Bahrain", popular: true },
+  { code: "+1", country: "🇺🇸 United States", popular: true },
+  { code: "+44", country: "🇬🇧 United Kingdom", popular: true },
+  { code: "+91", country: "🇮🇳 India", popular: true },
+  { code: "+86", country: "🇨🇳 China", popular: true },
   { code: "+93", country: "Afghanistan" },
   { code: "+355", country: "Albania" },
   { code: "+213", country: "Algeria" },
@@ -42,7 +53,6 @@ const countryCodes = [
   { code: "+61", country: "Australia" },
   { code: "+43", country: "Austria" },
   { code: "+994", country: "Azerbaijan" },
-  { code: "+973", country: "Bahrain" },
   { code: "+880", country: "Bangladesh" },
   { code: "+375", country: "Belarus" },
   { code: "+32", country: "Belgium" },
@@ -64,7 +74,6 @@ const countryCodes = [
   { code: "+236", country: "Central African Republic" },
   { code: "+235", country: "Chad" },
   { code: "+56", country: "Chile" },
-  { code: "+86", country: "China" },
   { code: "+57", country: "Colombia" },
   { code: "+269", country: "Comoros" },
   { code: "+242", country: "Congo" },
@@ -100,7 +109,6 @@ const countryCodes = [
   { code: "+852", country: "Hong Kong" },
   { code: "+36", country: "Hungary" },
   { code: "+354", country: "Iceland" },
-  { code: "+91", country: "India" },
   { code: "+62", country: "Indonesia" },
   { code: "+98", country: "Iran" },
   { code: "+964", country: "Iraq" },
@@ -112,7 +120,6 @@ const countryCodes = [
   { code: "+962", country: "Jordan" },
   { code: "+7", country: "Kazakhstan" },
   { code: "+254", country: "Kenya" },
-  { code: "+965", country: "Kuwait" },
   { code: "+996", country: "Kyrgyzstan" },
   { code: "+856", country: "Laos" },
   { code: "+371", country: "Latvia" },
@@ -149,7 +156,6 @@ const countryCodes = [
   { code: "+227", country: "Niger" },
   { code: "+234", country: "Nigeria" },
   { code: "+47", country: "Norway" },
-  { code: "+968", country: "Oman" },
   { code: "+92", country: "Pakistan" },
   { code: "+970", country: "Palestine" },
   { code: "+507", country: "Panama" },
@@ -159,11 +165,9 @@ const countryCodes = [
   { code: "+63", country: "Philippines" },
   { code: "+48", country: "Poland" },
   { code: "+351", country: "Portugal" },
-  { code: "+974", country: "Qatar" },
   { code: "+40", country: "Romania" },
   { code: "+7", country: "Russia" },
   { code: "+250", country: "Rwanda" },
-  { code: "+966", country: "Saudi Arabia" },
   { code: "+221", country: "Senegal" },
   { code: "+381", country: "Serbia" },
   { code: "+248", country: "Seychelles" },
@@ -193,9 +197,6 @@ const countryCodes = [
   { code: "+993", country: "Turkmenistan" },
   { code: "+256", country: "Uganda" },
   { code: "+380", country: "Ukraine" },
-  { code: "+971", country: "United Arab Emirates" },
-  { code: "+44", country: "United Kingdom" },
-  { code: "+1", country: "United States" },
   { code: "+598", country: "Uruguay" },
   { code: "+998", country: "Uzbekistan" },
   { code: "+58", country: "Venezuela" },
@@ -209,40 +210,27 @@ const registrationSchema = z.object({
   fullName: z
     .string()
     .trim()
-    .min(2, { message: "Full name must be at least 2 characters" })
-    .max(100, { message: "Full name must be less than 100 characters" }),
+    .min(2, { message: "Name required" })
+    .max(100, { message: "Name too long" }),
   email: z
     .string()
     .trim()
-    .email({ message: "Invalid email address" })
-    .max(255, { message: "Email must be less than 255 characters" }),
-  countryCode: z
-    .string()
-    .trim()
-    .regex(/^\+[0-9]{1,4}$/, {
-      message: "Invalid country code (e.g., +971, +1)",
-    }),
+    .email({ message: "Invalid email" })
+    .max(255, { message: "Email too long" }),
+  countryCode: z.string().trim(),
   phoneNumber: z
     .string()
     .trim()
-    .min(7, { message: "Phone number must be at least 7 digits" })
-    .max(15, { message: "Phone number must be less than 15 digits" })
-    .regex(/^[0-9\s]+$/, {
-      message: "Phone number must contain only digits",
-    }),
+    .min(7, { message: "Invalid phone number" })
+    .max(15, { message: "Phone number too long" })
+    .regex(/^[0-9\s]+$/, { message: "Only digits allowed" }),
   numberOfGuests: z
     .number()
     .int()
-    .min(1, { message: "At least 1 guest is required" })
-    .max(10, { message: "Maximum 10 guests allowed" }),
-  verificationMethod: z.enum(["whatsapp", "email"], {
-    required_error: "Please select a verification method",
-  }),
-  specialRequests: z
-    .string()
-    .trim()
-    .max(500, { message: "Special requests must be less than 500 characters" })
-    .optional(),
+    .min(1)
+    .max(10),
+  verificationMethod: z.enum(["whatsapp", "email"]),
+  specialRequests: z.string().trim().max(500).optional(),
 });
 
 type RegistrationFormData = z.infer<typeof registrationSchema>;
@@ -306,85 +294,39 @@ const EventRegistrationDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[540px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">Register for Event</DialogTitle>
-          <DialogDescription className="text-base">
-            Complete the form below to register for <span className="font-semibold text-foreground">{eventTitle}</span>
+          <DialogTitle className="text-xl font-semibold">Quick Registration</DialogTitle>
+          <DialogDescription>
+            Register for <span className="font-semibold text-foreground">{eventTitle}</span>
           </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-4">
-            <FormField
-              control={form.control}
-              name="fullName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Full Name *</FormLabel>
-                  <FormControl>
-                    <Input placeholder="John Doe" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email Address *</FormLabel>
-                  <FormControl>
-                    <Input type="email" placeholder="john.doe@example.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div className="grid grid-cols-3 gap-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 mt-2">
+            <div className="space-y-4">
               <FormField
                 control={form.control}
-                name="countryCode"
+                name="fullName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Code *</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger className="bg-background">
-                          <SelectValue placeholder="Code" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent className="bg-background z-50 max-h-[300px]">
-                        {countryCodes.map((item) => (
-                          <SelectItem key={`${item.code}-${item.country}`} value={item.code}>
-                            {item.code} {item.country}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <FormLabel>Full Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your full name" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
-                name="phoneNumber"
+                name="email"
                 render={({ field }) => (
-                  <FormItem className="col-span-2">
-                    <FormLabel>Phone Number *</FormLabel>
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input 
-                        type="tel" 
-                        placeholder="50 123 4567" 
-                        {...field}
-                        onChange={(e) => {
-                          const value = e.target.value.replace(/[^0-9\s]/g, '');
-                          field.onChange(value);
-                        }}
-                      />
+                      <Input type="email" placeholder="your@email.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -392,71 +334,128 @@ const EventRegistrationDialog = ({
               />
             </div>
 
+            <div className="space-y-3">
+              <FormLabel>Phone Number</FormLabel>
+              <div className="flex gap-2">
+                <FormField
+                  control={form.control}
+                  name="countryCode"
+                  render={({ field }) => (
+                    <FormItem className="w-32">
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="max-h-[300px]">
+                          {countryCodes.map((item, index) => (
+                            <SelectItem 
+                              key={`${item.code}-${index}`} 
+                              value={item.code}
+                              className={item.popular ? "font-medium" : ""}
+                            >
+                              {item.code}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="phoneNumber"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormControl>
+                        <Input 
+                          type="tel" 
+                          placeholder="501234567" 
+                          {...field}
+                          onChange={(e) => {
+                            const value = e.target.value.replace(/[^0-9]/g, '');
+                            field.onChange(value);
+                          }}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
             <FormField
               control={form.control}
               name="verificationMethod"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Verification Method *</FormLabel>
+                  <FormLabel>Verify Via</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className="flex flex-col space-y-1"
+                      className="flex gap-4"
                     >
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="whatsapp" id="whatsapp" />
-                        <label htmlFor="whatsapp" className="text-sm font-normal cursor-pointer">
-                          WhatsApp OTP Verification
+                        <label htmlFor="whatsapp" className="text-sm cursor-pointer">
+                          WhatsApp
                         </label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="email" id="email" />
-                        <label htmlFor="email" className="text-sm font-normal cursor-pointer">
-                          Email Verification
+                        <label htmlFor="email" className="text-sm cursor-pointer">
+                          Email
                         </label>
                       </div>
                     </RadioGroup>
                   </FormControl>
                   <p className="text-xs text-muted-foreground">
-                    You will need to verify your contact details before completing registration
+                    We'll send a verification code to confirm your registration
                   </p>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="numberOfGuests"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Number of Guests *</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      min={1}
-                      max={10}
-                      {...field}
-                      onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex items-center gap-4">
+              <FormField
+                control={form.control}
+                name="numberOfGuests"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Guests</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        min={1}
+                        max={10}
+                        {...field}
+                        onChange={(e) => field.onChange(parseInt(e.target.value, 10) || 1)}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <p className="text-xs text-muted-foreground pt-6">Max 10 guests</p>
+            </div>
 
             <FormField
               control={form.control}
               name="specialRequests"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Special Requests (Optional)</FormLabel>
+                  <FormLabel className="text-sm text-muted-foreground">
+                    Special Requests (Optional)
+                  </FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Any dietary restrictions, accessibility needs, or special requirements..."
-                      className="resize-none"
-                      rows={4}
+                      placeholder="Dietary restrictions, accessibility needs..."
+                      className="resize-none h-20"
                       {...field}
                     />
                   </FormControl>
@@ -465,12 +464,11 @@ const EventRegistrationDialog = ({
               )}
             />
 
-            <div className="flex gap-3 pt-4">
+            <div className="flex gap-3 pt-2">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => onOpenChange(false)}
-                className="flex-1"
                 disabled={isSubmitting}
               >
                 Cancel
@@ -479,10 +477,10 @@ const EventRegistrationDialog = ({
                 {isSubmitting ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Registering...
+                    Processing...
                   </>
                 ) : (
-                  "Complete Registration"
+                  "Register Now"
                 )}
               </Button>
             </div>
