@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ShareButtonProps {
   title: string;
@@ -18,10 +19,32 @@ interface ShareButtonProps {
 const ShareButton = ({ title, url, description }: ShareButtonProps) => {
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
+  const isMobile = useIsMobile();
 
   const shareUrl = encodeURIComponent(url);
   const shareTitle = encodeURIComponent(title);
   const shareDescription = encodeURIComponent(description || "");
+
+  const handleNativeShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: title,
+          text: description,
+          url: url,
+        });
+        toast({
+          title: "Shared successfully!",
+          description: "Thank you for sharing this event.",
+        });
+      } catch (err) {
+        // User cancelled or error occurred
+        if ((err as Error).name !== 'AbortError') {
+          console.error('Error sharing:', err);
+        }
+      }
+    }
+  };
 
   const handleCopyLink = async () => {
     try {
@@ -50,19 +73,34 @@ const ShareButton = ({ title, url, description }: ShareButtonProps) => {
     email: `mailto:?subject=${shareTitle}&body=${shareDescription}%0A%0A${shareUrl}`,
   };
 
+  // Use native share on mobile if available
+  if (isMobile && navigator.share) {
+    return (
+      <Button
+        variant="outline"
+        size={isMobile ? "default" : "lg"}
+        onClick={handleNativeShare}
+        className="gap-2 border-accent/30 hover:bg-accent/10 hover:border-accent w-full sm:w-auto"
+      >
+        <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
+        <span className="text-sm sm:text-base">Share Event</span>
+      </Button>
+    );
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          size="lg"
-          className="gap-2 border-[hsl(var(--accent))]/30 hover:bg-[hsl(var(--accent))]/10 hover:border-[hsl(var(--accent))]"
+          size={isMobile ? "default" : "lg"}
+          className="gap-2 border-accent/30 hover:bg-accent/10 hover:border-accent w-full sm:w-auto"
         >
-          <Share2 className="w-5 h-5" />
-          Share Event
+          <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="text-sm sm:text-base">Share Event</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" className="w-56 sm:w-64 z-50 bg-popover">
         <DropdownMenuItem asChild>
           <a
             href={shareLinks.whatsapp}
