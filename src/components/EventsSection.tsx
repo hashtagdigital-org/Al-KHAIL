@@ -3,11 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { Calendar, MapPin, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { events } from "@/data/events";
+import { parseISO, isBefore, parse } from "date-fns";
 const EventsSection = () => {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState<"all" | "upcoming" | "past">("all");
+  
+  // Helper function to check if event date has passed
+  const isEventPast = (dateString: string) => {
+    try {
+      const eventDate = parse(dateString, "MMMM d, yyyy", new Date());
+      return isBefore(eventDate, new Date());
+    } catch {
+      return false;
+    }
+  };
+  
   const filteredEvents = activeFilter === "all" ? events : events.filter(event => event.category === activeFilter);
+  
   const handleViewDetails = (slug: string) => {
     navigate(`/event/${slug}`);
   };
@@ -46,48 +60,111 @@ const EventsSection = () => {
 
         {/* Events Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredEvents.map((event, index) => <Card key={event.id} className="group overflow-hidden border-border/50 hover:border-[hsl(var(--accent))]/50 transition-all duration-500 animate-fade-in bg-card/50 backdrop-blur-sm hover:-translate-y-2" style={{
-          animationDelay: `${index * 100}ms`
-        }}>
-              <div className="relative overflow-hidden aspect-[4/3]">
-                <img src={event.image} alt={event.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute top-4 right-4 z-10">
-                  <span className="bg-[hsl(var(--luxury-gold))] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg backdrop-blur-sm">
-                    {event.type}
-                  </span>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-                
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--accent))] via-[hsl(var(--accent))]/50 to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-500 flex items-center justify-center">
-                  <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    <ArrowRight className="w-12 h-12 text-white" />
+          {filteredEvents.map((event, index) => {
+            const isPast = isEventPast(event.date);
+            return (
+              <Card 
+                key={event.id} 
+                className={`group overflow-hidden border-border/50 transition-all duration-500 animate-fade-in bg-card/50 backdrop-blur-sm ${
+                  isPast 
+                    ? 'opacity-75 hover:opacity-90' 
+                    : 'hover:border-[hsl(var(--accent))]/50 hover:-translate-y-2'
+                }`} 
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="relative overflow-hidden aspect-[4/3]">
+                  <img 
+                    src={event.image} 
+                    alt={event.title} 
+                    className={`w-full h-full object-cover transition-all duration-700 ${
+                      isPast 
+                        ? 'grayscale group-hover:grayscale-[50%]' 
+                        : 'group-hover:scale-110'
+                    }`}
+                  />
+                  <div className="absolute top-4 right-4 z-10 flex gap-2">
+                    {isPast && (
+                      <Badge variant="secondary" className="bg-muted text-muted-foreground">
+                        Past Event
+                      </Badge>
+                    )}
+                    <span className={`px-4 py-2 rounded-full text-sm font-semibold shadow-lg backdrop-blur-sm ${
+                      isPast 
+                        ? 'bg-muted text-muted-foreground' 
+                        : 'bg-[hsl(var(--luxury-gold))] text-white'
+                    }`}>
+                      {event.type}
+                    </span>
                   </div>
+                  <div className={`absolute inset-0 bg-gradient-to-t transition-opacity duration-500 ${
+                    isPast 
+                      ? 'from-muted/90 via-muted/50 to-transparent opacity-70' 
+                      : 'from-black/80 via-black/40 to-transparent opacity-60 group-hover:opacity-80'
+                  }`} />
+                  
+                  {/* Hover Overlay */}
+                  {!isPast && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--accent))] via-[hsl(var(--accent))]/50 to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-500 flex items-center justify-center">
+                      <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <ArrowRight className="w-12 h-12 text-white" />
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
               
-              <CardContent className="p-8">
-                <h3 className="text-xl font-bold text-card-foreground mb-6 group-hover:text-[hsl(var(--accent))] transition-colors duration-300 line-clamp-2">
-                  {event.title}
-                </h3>
-                
-                <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-3 text-muted-foreground group-hover:text-foreground transition-colors duration-300">
-                    <Calendar className="w-5 h-5 text-[hsl(var(--accent))]" />
-                    <span className="text-sm font-medium">{event.date}</span>
+                <CardContent className="p-8">
+                  <h3 className={`text-xl font-bold mb-6 transition-colors duration-300 line-clamp-2 ${
+                    isPast 
+                      ? 'text-muted-foreground' 
+                      : 'text-card-foreground group-hover:text-[hsl(var(--accent))]'
+                  }`}>
+                    {event.title}
+                  </h3>
+                  
+                  <div className="space-y-3 mb-8">
+                    <div className={`flex items-center gap-3 transition-colors duration-300 ${
+                      isPast 
+                        ? 'text-muted-foreground' 
+                        : 'text-muted-foreground group-hover:text-foreground'
+                    }`}>
+                      <Calendar className={`w-5 h-5 ${
+                        isPast ? 'text-muted-foreground' : 'text-[hsl(var(--accent))]'
+                      }`} />
+                      <span className="text-sm font-medium">{event.date}</span>
+                    </div>
+                    <div className={`flex items-center gap-3 transition-colors duration-300 ${
+                      isPast 
+                        ? 'text-muted-foreground' 
+                        : 'text-muted-foreground group-hover:text-foreground'
+                    }`}>
+                      <MapPin className={`w-5 h-5 ${
+                        isPast ? 'text-muted-foreground' : 'text-[hsl(var(--accent))]'
+                      }`} />
+                      <span className="text-sm font-medium">{event.location}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3 text-muted-foreground group-hover:text-foreground transition-colors duration-300">
-                    <MapPin className="w-5 h-5 text-[hsl(var(--accent))]" />
-                    <span className="text-sm font-medium">{event.location}</span>
-                  </div>
-                </div>
 
-                <Button variant="outline" className="w-full group/btn border-[hsl(var(--accent))]/30 hover:bg-[hsl(var(--accent))] hover:text-white hover:border-[hsl(var(--accent))] transition-all duration-300 h-12" size="lg" onClick={() => handleViewDetails(event.slug)}>
-                  <span className="font-semibold">View Details</span>
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-2 transition-transform duration-300" />
-                </Button>
-              </CardContent>
-            </Card>)}
+                  <Button 
+                    variant="outline" 
+                    className={`w-full h-12 transition-all duration-300 ${
+                      isPast
+                        ? 'border-muted text-muted-foreground cursor-default hover:bg-transparent'
+                        : 'group/btn border-[hsl(var(--accent))]/30 hover:bg-[hsl(var(--accent))] hover:text-white hover:border-[hsl(var(--accent))]'
+                    }`}
+                    size="lg" 
+                    onClick={() => handleViewDetails(event.slug)}
+                  >
+                    <span className="font-semibold">
+                      {isPast ? 'Event Ended' : 'View Details'}
+                    </span>
+                    {!isPast && (
+                      <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-2 transition-transform duration-300" />
+                    )}
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         {/* No Results Message */}
