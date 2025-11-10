@@ -27,6 +27,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 
@@ -234,6 +235,9 @@ const registrationSchema = z.object({
     .int()
     .min(1, { message: "At least 1 guest is required" })
     .max(10, { message: "Maximum 10 guests allowed" }),
+  verificationMethod: z.enum(["whatsapp", "email"], {
+    required_error: "Please select a verification method",
+  }),
   specialRequests: z
     .string()
     .trim()
@@ -267,6 +271,7 @@ const EventRegistrationDialog = ({
       countryCode: "+971",
       phoneNumber: "",
       numberOfGuests: 1,
+      verificationMethod: "whatsapp",
       specialRequests: "",
     },
   });
@@ -386,6 +391,40 @@ const EventRegistrationDialog = ({
                 )}
               />
             </div>
+
+            <FormField
+              control={form.control}
+              name="verificationMethod"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Verification Method *</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="whatsapp" id="whatsapp" />
+                        <label htmlFor="whatsapp" className="text-sm font-normal cursor-pointer">
+                          WhatsApp OTP Verification
+                        </label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="email" id="email" />
+                        <label htmlFor="email" className="text-sm font-normal cursor-pointer">
+                          Email Verification
+                        </label>
+                      </div>
+                    </RadioGroup>
+                  </FormControl>
+                  <p className="text-xs text-muted-foreground">
+                    You will need to verify your contact details before completing registration
+                  </p>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <FormField
               control={form.control}
