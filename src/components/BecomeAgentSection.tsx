@@ -110,15 +110,15 @@ const BecomeAgentSection = () => {
   };
 
   return (
-    <section id="become-agent" className="py-20 bg-gradient-to-b from-muted/20 to-background">
+    <section id="become-agent" className="py-20 bg-gradient-to-b from-background via-muted/20 to-background">
       <div className="container mx-auto px-4">
         {/* Hero Section */}
         <div className="text-center mb-16 animate-fade-in">
-          <Badge variant="outline" className="mb-4 border-luxury-gold/30 text-luxury-gold">
+          <Badge variant="outline" className="mb-4 border-brand-red/30 text-brand-red">
             <UserPlus className="w-3 h-3 mr-1" />
             Career Opportunity
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-luxury-gold via-luxury-gold-light to-luxury-gold bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-brand-red via-luxury-gold to-brand-red bg-clip-text text-transparent">
             Become an Agent
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
@@ -129,7 +129,7 @@ const BecomeAgentSection = () => {
             <Button
               size="lg"
               onClick={() => setShowForm(true)}
-              className="bg-gradient-to-r from-luxury-gold to-luxury-gold-light hover:from-luxury-gold-light hover:to-luxury-gold text-black font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="bg-gradient-to-r from-brand-red to-brand-red-dark hover:from-brand-red-dark hover:to-brand-red text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
               Apply Now
               <UserPlus className="ml-2 w-5 h-5" />
@@ -144,14 +144,14 @@ const BecomeAgentSection = () => {
             return (
               <Card
                 key={index}
-                className="group border-border/50 bg-card/50 backdrop-blur-sm hover:border-luxury-gold/50 transition-all duration-300 hover:shadow-lg animate-fade-in"
+                className="group border-border/50 bg-card/50 backdrop-blur-sm hover:border-brand-red/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-red/10 animate-fade-in"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <CardContent className="p-6 text-center">
-                  <div className="mx-auto w-16 h-16 mb-4 bg-gradient-to-br from-luxury-gold/10 to-transparent rounded-full flex items-center justify-center border border-luxury-gold/30 group-hover:border-luxury-gold/50 transition-all duration-300">
-                    <Icon className="w-8 h-8 text-luxury-gold" />
+                  <div className="mx-auto w-16 h-16 mb-4 bg-gradient-to-br from-brand-red/10 via-luxury-gold/10 to-transparent rounded-full flex items-center justify-center border border-brand-red/30 group-hover:border-brand-red/50 transition-all duration-300">
+                    <Icon className="w-8 h-8 text-brand-red group-hover:text-luxury-gold transition-colors duration-300" />
                   </div>
-                  <h3 className="font-bold mb-2">{benefit.title}</h3>
+                  <h3 className="font-bold mb-2 group-hover:text-brand-red transition-colors duration-300">{benefit.title}</h3>
                   <p className="text-sm text-muted-foreground">{benefit.description}</p>
                 </CardContent>
               </Card>
@@ -169,7 +169,7 @@ const BecomeAgentSection = () => {
               variant="outline"
               size="lg"
               onClick={() => setShowForm(true)}
-              className="border-luxury-gold/50 text-luxury-gold hover:bg-luxury-gold/10"
+              className="border-brand-red/50 text-brand-red hover:bg-brand-red hover:text-white"
             >
               Become an Agent Now
             </Button>
@@ -282,7 +282,7 @@ const BecomeAgentSection = () => {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-luxury-gold to-luxury-gold-light hover:from-luxury-gold-light hover:to-luxury-gold text-black font-semibold"
+                  className="w-full bg-gradient-to-r from-brand-red to-brand-red-dark hover:from-brand-red-dark hover:to-brand-red text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
@@ -307,7 +307,7 @@ const BecomeAgentSection = () => {
         {!showForm && (
           <div className="text-center mt-12 text-sm text-muted-foreground">
             Not ready yet?{" "}
-            <a href="#about" className="text-luxury-gold hover:underline">
+            <a href="#about" className="text-brand-red hover:text-luxury-gold hover:underline transition-colors duration-300">
               Learn more about Alkhail Real Estate's culture and success stories
             </a>
           </div>
