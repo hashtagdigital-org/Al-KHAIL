@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Bed, Bath, Maximize, MapPin } from "lucide-react";
+import { Bed, Bath, Maximize, MapPin, Building2, Calendar, Star } from "lucide-react";
 import property1 from "@/assets/property-1.jpg";
 import property2 from "@/assets/property-2.jpg";
 import property3 from "@/assets/property-3.jpg";
@@ -19,6 +19,9 @@ const properties = [
     bathrooms: 6,
     sqft: "8,500",
     type: "Villa",
+    developer: "Emaar Properties",
+    completion: "Q4 2024",
+    features: ["Private Beach Access", "Smart Home", "Infinity Pool"],
   },
   {
     id: 2,
@@ -30,6 +33,9 @@ const properties = [
     bathrooms: 5,
     sqft: "5,200",
     type: "Penthouse",
+    developer: "Dubai Properties",
+    completion: "Ready to Move",
+    features: ["Burj Khalifa View", "Private Elevator", "Rooftop Terrace"],
   },
   {
     id: 3,
@@ -41,39 +47,9 @@ const properties = [
     bathrooms: 7,
     sqft: "10,000",
     type: "Villa",
-  },
-  {
-    id: 4,
-    title: "Modern City Apartment",
-    location: "Business Bay, Dubai",
-    price: "AED 3,200,000",
-    image: property4,
-    bedrooms: 3,
-    bathrooms: 3,
-    sqft: "2,800",
-    type: "Apartment",
-  },
-  {
-    id: 5,
-    title: "Contemporary Townhouse",
-    location: "Arabian Ranches",
-    price: "AED 4,500,000",
-    image: property5,
-    bedrooms: 4,
-    bathrooms: 4,
-    sqft: "3,500",
-    type: "Townhouse",
-  },
-  {
-    id: 6,
-    title: "Luxury Duplex",
-    location: "Dubai Marina",
-    price: "AED 6,800,000",
-    image: property6,
-    bedrooms: 4,
-    bathrooms: 4,
-    sqft: "4,200",
-    type: "Duplex",
+    developer: "Nakheel",
+    completion: "Ready to Move",
+    features: ["Private Marina Berth", "Cinema Room", "Gym & Spa"],
   },
 ];
 
@@ -108,15 +84,48 @@ const FeaturedPropertiesSection = () => {
               </div>
               
               <CardContent className="p-6">
-                <div className="mb-3">
+                <div className="mb-4">
                   <h3 className="text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors">
                     {property.title}
                   </h3>
                   <div className="flex items-center text-muted-foreground mb-3">
-                    <MapPin className="w-4 h-4 mr-1" />
+                    <MapPin className="w-4 h-4 mr-1 flex-shrink-0" />
                     <span className="text-sm">{property.location}</span>
                   </div>
-                  <p className="text-2xl font-bold text-accent">{property.price}</p>
+                  <p className="text-2xl font-bold text-accent mb-4">{property.price}</p>
+                  
+                  {/* Developer & Completion */}
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center gap-2 text-sm">
+                      <Building2 className="w-4 h-4 text-[hsl(var(--luxury-gold))]" />
+                      <span className="text-muted-foreground">Developer:</span>
+                      <span className="font-semibold text-foreground">{property.developer}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <Calendar className="w-4 h-4 text-[hsl(var(--luxury-gold))]" />
+                      <span className="text-muted-foreground">Completion:</span>
+                      <span className="font-semibold text-foreground">{property.completion}</span>
+                    </div>
+                  </div>
+
+                  {/* Specialized Features */}
+                  <div className="mb-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Star className="w-4 h-4 text-[hsl(var(--luxury-gold))]" />
+                      <span className="text-sm font-semibold text-foreground">Key Features:</span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {property.features.map((feature, index) => (
+                        <Badge 
+                          key={index} 
+                          variant="outline" 
+                          className="text-xs border-[hsl(var(--luxury-gold))]/30 text-foreground"
+                        >
+                          {feature}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex items-center justify-between pt-4 border-t border-border">
