@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import ShareButton from "@/components/ShareButton";
 import { getEventBySlug } from "@/data/events";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import EventRegistrationDialog from "@/components/EventRegistrationDialog";
 
 const EventLanding = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const event = slug ? getEventBySlug(slug) : null;
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
 
   useEffect(() => {
     if (event) {
@@ -194,6 +196,7 @@ const EventLanding = () => {
                 variant="secondary"
                 size="lg" 
                 className="w-full h-14 text-lg font-semibold mb-4 bg-white text-[hsl(var(--accent))] hover:bg-white/90"
+                onClick={() => event.category === "upcoming" && setIsRegistrationOpen(true)}
               >
                 {event.category === "upcoming" ? "Register Now" : "View Gallery"}
               </Button>
@@ -229,6 +232,14 @@ const EventLanding = () => {
           </div>
         </div>
       </div>
+
+      {/* Registration Dialog */}
+      <EventRegistrationDialog
+        open={isRegistrationOpen}
+        onOpenChange={setIsRegistrationOpen}
+        eventTitle={event.title}
+        eventId={event.id.toString()}
+      />
     </div>
   );
 };
