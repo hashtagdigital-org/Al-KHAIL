@@ -1,5 +1,6 @@
-import { Linkedin, Mail, MessageCircle } from "lucide-react";
+import { Linkedin, Mail, MessageCircle, Award, TrendingUp, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 const TeamSection = () => {
   const team = [
@@ -10,7 +11,10 @@ const TeamSection = () => {
       image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop",
       linkedin: "#",
       whatsapp: "#",
-      email: "hadi@alkhail.com"
+      email: "hadi@alkhail.com",
+      experience: "18+ Years",
+      properties: "500+",
+      rating: "4.9"
     },
     {
       name: "Nasser Dehghan",
@@ -19,7 +23,10 @@ const TeamSection = () => {
       image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop",
       linkedin: "#",
       whatsapp: "#",
-      email: "nasser@alkhail.com"
+      email: "nasser@alkhail.com",
+      experience: "15+ Years",
+      properties: "450+",
+      rating: "4.8"
     },
     {
       name: "Mohanned Mohamed",
@@ -28,7 +35,10 @@ const TeamSection = () => {
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
       linkedin: "#",
       whatsapp: "#",
-      email: "mohanned@alkhail.com"
+      email: "mohanned@alkhail.com",
+      experience: "10+ Years",
+      properties: "300+",
+      rating: "4.9"
     },
   ];
 
@@ -48,85 +58,118 @@ const TeamSection = () => {
         </div>
 
         {/* Team Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mb-16">
           {team.map((member, index) => (
             <div
               key={index}
               className="group animate-fade-in"
               style={{ animationDelay: `${index * 150}ms` }}
             >
-              {/* Modern Card Container */}
-              <div className="relative bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)] hover:-translate-y-3 border border-gray-100">
+              {/* Ultra Modern Agent Card */}
+              <div className="relative bg-white rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-[0_25px_70px_rgba(0,0,0,0.15)] hover:-translate-y-4 border border-gray-100 group-hover:border-brand-red/20">
                 
-                {/* Profile Photo with Overlay */}
-                <div className="relative overflow-hidden aspect-[4/5]">
+                {/* Profile Photo with Modern Overlay */}
+                <div className="relative overflow-hidden aspect-[4/5] bg-gradient-to-br from-gray-100 to-gray-50">
                   <img 
                     src={member.image} 
                     alt={member.name}
-                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                   />
                   
-                  {/* Gradient Overlay on Hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  {/* Overlay Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500" />
                   
-                  {/* Social Icons - Appear on Hover */}
-                  <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-90 group-hover:scale-100">
+                  {/* Top Stats Bar */}
+                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
+                    <Badge className="bg-luxury-gold/90 backdrop-blur-md border-0 text-white text-xs px-3 py-1.5 shadow-lg">
+                      ⭐ {member.rating}
+                    </Badge>
+                    <Badge className="bg-white/90 backdrop-blur-md border-0 text-[#2C2C2C] text-xs px-3 py-1.5 shadow-lg">
+                      <Award className="w-3 h-3 mr-1" />
+                      Top Agent
+                    </Badge>
+                  </div>
+                  
+                  {/* Agent Info Overlay - Always Visible */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse shadow-lg shadow-green-500/50" />
+                      <span className="text-xs font-medium text-white/90">Available Now</span>
+                    </div>
+                    
+                    <h3 className="text-2xl font-bold mb-1 drop-shadow-lg">
+                      {member.name}
+                    </h3>
+                    
+                    <p className="text-white/90 text-sm font-medium mb-3">
+                      {member.role}
+                    </p>
+                    
+                    {/* Quick Stats */}
+                    <div className="flex items-center gap-4 text-xs text-white/80">
+                      <div className="flex items-center gap-1">
+                        <TrendingUp className="w-3.5 h-3.5" />
+                        <span>{member.experience}</span>
+                      </div>
+                      <div className="w-1 h-1 rounded-full bg-white/40" />
+                      <div className="flex items-center gap-1">
+                        <span className="font-semibold">{member.properties}</span>
+                        <span>Properties</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Social Icons - Hover State */}
+                  <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-black/30 backdrop-blur-sm">
                     <a
                       href={member.linkedin}
-                      className="w-12 h-12 rounded-full bg-white/95 backdrop-blur-sm hover:bg-brand-red flex items-center justify-center transition-all duration-300 shadow-lg hover:scale-110"
+                      className="w-14 h-14 rounded-2xl bg-white/95 hover:bg-brand-red flex items-center justify-center transition-all duration-300 shadow-2xl hover:scale-110 group/icon"
                       aria-label="LinkedIn"
                     >
-                      <Linkedin className="w-5 h-5 text-[#2C2C2C] hover:text-white transition-colors" />
+                      <Linkedin className="w-6 h-6 text-[#2C2C2C] group-hover/icon:text-white transition-colors" />
                     </a>
                     <a
                       href={`https://wa.me/${member.whatsapp}`}
-                      className="w-12 h-12 rounded-full bg-white/95 backdrop-blur-sm hover:bg-[#25D366] flex items-center justify-center transition-all duration-300 shadow-lg hover:scale-110"
+                      className="w-14 h-14 rounded-2xl bg-white/95 hover:bg-[#25D366] flex items-center justify-center transition-all duration-300 shadow-2xl hover:scale-110 group/icon"
                       aria-label="WhatsApp"
                     >
-                      <MessageCircle className="w-5 h-5 text-[#2C2C2C] hover:text-white transition-colors" />
+                      <MessageCircle className="w-6 h-6 text-[#2C2C2C] group-hover/icon:text-white transition-colors" />
                     </a>
                     <a
                       href={`mailto:${member.email}`}
-                      className="w-12 h-12 rounded-full bg-white/95 backdrop-blur-sm hover:bg-luxury-gold flex items-center justify-center transition-all duration-300 shadow-lg hover:scale-110"
+                      className="w-14 h-14 rounded-2xl bg-white/95 hover:bg-luxury-gold flex items-center justify-center transition-all duration-300 shadow-2xl hover:scale-110 group/icon"
                       aria-label="Email"
                     >
-                      <Mail className="w-5 h-5 text-[#2C2C2C] hover:text-white transition-colors" />
+                      <Mail className="w-6 h-6 text-[#2C2C2C] group-hover/icon:text-white transition-colors" />
                     </a>
                   </div>
                 </div>
                 
                 {/* Content Section */}
-                <div className="p-8">
-                  {/* Name */}
-                  <h3 className="text-2xl font-bold text-[#2C2C2C] mb-2 tracking-tight">
-                    {member.name}
-                  </h3>
-                  
-                  {/* Job Title with Accent */}
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="h-1 w-8 bg-gradient-to-r from-brand-red to-luxury-gold rounded-full" />
-                    <p className="text-brand-red font-semibold text-sm tracking-wide uppercase">
-                      {member.role}
-                    </p>
-                  </div>
-                  
-                  {/* Specialty/Tagline */}
-                  <p className="text-[#6B7280] text-sm leading-relaxed">
+                <div className="p-6 space-y-4">
+                  {/* Specialty */}
+                  <p className="text-[#6B7280] text-sm leading-relaxed min-h-[2.5rem]">
                     {member.specialty}
                   </p>
                   
-                  {/* Decorative Bottom Element */}
-                  <div className="mt-6 pt-6 border-t border-gray-100">
-                    <div className="flex items-center justify-between text-xs text-gray-400">
-                      <span className="flex items-center gap-1">
-                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                        Available
-                      </span>
-                      <span className="font-medium hover:text-brand-red transition-colors cursor-pointer">
-                        View Profile →
-                      </span>
-                    </div>
-                  </div>
+                  {/* Divider */}
+                  <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+                  
+                  {/* Show More Button */}
+                  <Button 
+                    className="w-full bg-gradient-to-r from-brand-red to-brand-red/90 hover:from-brand-red/90 hover:to-brand-red text-white font-semibold py-6 rounded-xl shadow-lg shadow-brand-red/20 hover:shadow-xl hover:shadow-brand-red/30 transition-all duration-300 group/btn"
+                  >
+                    <span>View Agent Profile</span>
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                  </Button>
+                  
+                  {/* Quick Contact Link */}
+                  <a 
+                    href={`mailto:${member.email}`}
+                    className="block text-center text-sm text-brand-red hover:text-brand-red/80 font-medium transition-colors duration-300"
+                  >
+                    or contact via email →
+                  </a>
                 </div>
               </div>
             </div>
