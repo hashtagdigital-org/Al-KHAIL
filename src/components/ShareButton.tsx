@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Share2, Facebook, Twitter, Linkedin, Mail, Link2, Check } from "lucide-react";
+import { Share2, Facebook, Twitter, Linkedin, Mail, Link2, Check, MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -42,6 +42,8 @@ const ShareButton = ({ title, url, description }: ShareButtonProps) => {
   };
 
   const shareLinks = {
+    whatsapp: `https://wa.me/?text=${shareTitle}%20${shareUrl}`,
+    telegram: `https://t.me/share/url?url=${shareUrl}&text=${shareTitle}`,
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`,
     twitter: `https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareTitle}`,
     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`,
@@ -61,6 +63,30 @@ const ShareButton = ({ title, url, description }: ShareButtonProps) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuItem asChild>
+          <a
+            href={shareLinks.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gap-3 cursor-pointer"
+          >
+            <MessageCircle className="w-4 h-4 text-green-600" />
+            <span>Share on WhatsApp</span>
+          </a>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem asChild>
+          <a
+            href={shareLinks.telegram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gap-3 cursor-pointer"
+          >
+            <Send className="w-4 h-4 text-blue-500" />
+            <span>Share on Telegram</span>
+          </a>
+        </DropdownMenuItem>
+
         <DropdownMenuItem onClick={handleCopyLink} className="gap-3 cursor-pointer">
           {copied ? (
             <Check className="w-4 h-4 text-green-500" />
