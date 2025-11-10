@@ -5,25 +5,21 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { events } from "@/data/events";
-import { parseISO, isBefore, parse } from "date-fns";
+
 const EventsSection = () => {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState<"all" | "upcoming" | "past">("all");
-  
-  // Helper function to check if event date has passed
-  const isEventPast = (dateString: string) => {
-    try {
-      const eventDate = parse(dateString, "MMMM d, yyyy", new Date());
-      return isBefore(eventDate, new Date());
-    } catch {
-      return false;
-    }
-  };
   
   const filteredEvents = activeFilter === "all" ? events : events.filter(event => event.category === activeFilter);
   
   const handleViewDetails = (slug: string) => {
     navigate(`/event/${slug}`);
+  };
+
+  const handleCardClick = (slug: string, isPast: boolean) => {
+    if (!isPast) {
+      navigate(`/event/${slug}`);
+    }
   };
   return <section className="py-16 sm:py-20 md:py-32 px-4 bg-gradient-to-b from-background via-muted/30 to-background relative overflow-hidden">
       {/* Decorative Background Elements */}
@@ -61,14 +57,15 @@ const EventsSection = () => {
         {/* Events Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredEvents.map((event, index) => {
-            const isPast = isEventPast(event.date);
+            const isPast = event.category === "past";
             return (
               <Card 
                 key={event.id} 
+                onClick={() => handleCardClick(event.slug, isPast)}
                 className={`group overflow-hidden border-border/50 transition-all duration-500 animate-fade-in bg-card/50 backdrop-blur-sm ${
                   isPast 
-                    ? 'opacity-75 hover:opacity-90' 
-                    : 'hover:border-[hsl(var(--accent))]/50 hover:-translate-y-2'
+                    ? 'opacity-75 hover:opacity-90 cursor-default' 
+                    : 'hover:border-[hsl(var(--accent))]/50 hover:-translate-y-2 cursor-pointer'
                 }`} 
                 style={{ animationDelay: `${index * 100}ms` }}
               >
