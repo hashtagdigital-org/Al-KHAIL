@@ -21,13 +21,22 @@ const Navigation = () => {
             <a href="#team" className="text-foreground hover:text-accent transition-colors">
               Our Team
             </a>
+            <a href="#become-agent" className="text-foreground hover:text-accent transition-colors">
+              Join Us
+            </a>
             <a href="#contact" className="text-foreground hover:text-accent transition-colors">
               Contact
             </a>
           </div>
           
-          <Button className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
-            Get Started
+          <Button 
+            onClick={() => {
+              const element = document.getElementById('become-agent');
+              element?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
+          >
+            Become an Agent
           </Button>
         </div>
       </div>
