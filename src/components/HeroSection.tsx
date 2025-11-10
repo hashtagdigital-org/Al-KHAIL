@@ -10,9 +10,19 @@ const HeroSection = () => {
         style={{
           backgroundImage: `linear-gradient(135deg, rgba(32, 43, 61, 0.9) 0%, rgba(32, 43, 61, 0.7) 100%), url(${heroImage})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
         }}
-      />
+      >
+        <style>{`
+          @media (max-width: 640px) {
+            #home > div {
+              background-size: cover !important;
+              background-position: center 30% !important;
+            }
+          }
+        `}</style>
+      </div>
       
       <div className="container mx-auto px-4 sm:px-6 z-10 text-center animate-fade-in">
         <div className="max-w-4xl mx-auto">
