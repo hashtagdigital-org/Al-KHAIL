@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Calendar, MapPin, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import EventDetailDialog from "@/components/EventDetailDialog";
 import eventOpenHouse from "@/assets/event-open-house.jpg";
 import eventExhibition from "@/assets/event-exhibition.jpg";
 import eventPropertyLaunch from "@/assets/event-property-launch.jpg";
@@ -68,10 +69,17 @@ const events = [
 
 const EventsSection = () => {
   const [activeFilter, setActiveFilter] = useState<"all" | "upcoming" | "past">("all");
+  const [selectedEvent, setSelectedEvent] = useState<typeof events[0] | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const filteredEvents = activeFilter === "all" 
     ? events 
     : events.filter(event => event.category === activeFilter);
+
+  const handleViewDetails = (event: typeof events[0]) => {
+    setSelectedEvent(event);
+    setDialogOpen(true);
+  };
 
   return (
     <section className="py-32 px-4 bg-gradient-to-b from-background via-muted/30 to-background relative overflow-hidden">
@@ -171,6 +179,7 @@ const EventsSection = () => {
                   variant="outline"
                   className="w-full group/btn border-[hsl(var(--accent))]/30 hover:bg-[hsl(var(--accent))] hover:text-white hover:border-[hsl(var(--accent))] transition-all duration-300 h-12"
                   size="lg"
+                  onClick={() => handleViewDetails(event)}
                 >
                   <span className="font-semibold">View Details</span>
                   <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-2 transition-transform duration-300" />
@@ -192,6 +201,13 @@ const EventsSection = () => {
           </div>
         )}
       </div>
+
+      {/* Event Detail Dialog */}
+      <EventDetailDialog 
+        event={selectedEvent}
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+      />
     </section>
   );
 };
