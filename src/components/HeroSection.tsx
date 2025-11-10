@@ -1,5 +1,6 @@
 import heroImage from "@/assets/hero-real-estate.jpg";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/use-toast";
 
 const HeroSection = () => {
   return (
@@ -32,6 +33,10 @@ const HeroSection = () => {
             <Button 
               size="lg" 
               className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base sm:text-lg px-6 sm:px-8 h-12 sm:h-14 w-full sm:w-auto"
+              onClick={() => toast({
+                title: "Under Maintenance",
+                description: "New AI version coming soon! Stay tuned for exciting updates.",
+              })}
             >
               Explore Properties
             </Button>
