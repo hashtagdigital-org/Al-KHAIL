@@ -33,7 +33,9 @@ const EventsSection = () => {
 
         {/* Filter Tabs */}
         <div className="flex justify-center gap-3 mb-16 animate-fade-in flex-wrap">
-          
+          <Button variant={activeFilter === "all" ? "accent" : "outline"} onClick={() => setActiveFilter("all")} className="min-w-[140px] h-12 text-base font-medium" size="lg">
+            All Events
+          </Button>
           <Button variant={activeFilter === "upcoming" ? "accent" : "outline"} onClick={() => setActiveFilter("upcoming")} className="min-w-[140px] h-12 text-base font-medium" size="lg">
             Upcoming Events
           </Button>
