@@ -36,9 +36,18 @@ const EventsSection = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-gradient-luxury">
             Alkhail Events
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4 mb-8">
             Discover our latest open houses, property launches, and special gatherings.
           </p>
+          <Button 
+            variant="accent" 
+            size="lg" 
+            onClick={() => navigate('/events')}
+            className="h-12 px-8 text-base font-semibold"
+          >
+            View All Events
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
         </div>
 
         {/* Filter Tabs */}
