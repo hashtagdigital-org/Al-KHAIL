@@ -293,17 +293,17 @@ const AllEventsPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(var(--luxury-gold))]">
+      <section className="py-12 sm:py-16 px-4 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(var(--luxury-gold))]">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
             Want to Stay Updated?
           </h2>
-          <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
+          <p className="text-white/90 text-sm sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto px-2">
             Be the first to know about our upcoming events, exclusive property launches, and VIP gatherings.
           </p>
           <Button 
             size="lg" 
-            className="bg-white text-[hsl(var(--accent))] hover:bg-white/90 h-14 px-8 text-lg font-semibold"
+            className="bg-white text-[hsl(var(--accent))] hover:bg-white/90 h-11 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold"
             onClick={() => window.open('https://wa.me/971041234567', '_blank')}
           >
             Contact Us on WhatsApp

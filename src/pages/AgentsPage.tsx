@@ -61,24 +61,24 @@ const AgentsPage = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-24 pb-12 bg-gradient-to-br from-primary/10 via-background to-accent/5">
-        <div className="container mx-auto px-4">
+      <section className="pt-20 sm:pt-24 pb-8 sm:pb-12 bg-gradient-to-br from-primary/10 via-background to-accent/5">
+        <div className="container mx-auto px-4 sm:px-6">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-6 transition-colors"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-4 sm:mb-6 transition-colors text-sm sm:text-base"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Home
           </Link>
 
           <div className="text-center max-w-3xl mx-auto">
-            <Badge className="mb-4 bg-accent/20 text-accent border-accent/30">
+            <Badge className="mb-3 sm:mb-4 bg-accent/20 text-accent border-accent/30 text-xs sm:text-sm">
               Our Expert Team
             </Badge>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
               Alkhail <span className="text-primary">Agents</span>
             </h1>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-sm sm:text-lg px-2">
               Meet our team of experienced property consultants dedicated to finding your perfect home in Dubai
             </p>
           </div>
@@ -86,39 +86,39 @@ const AgentsPage = () => {
       </section>
 
       {/* Stats Bar */}
-      <section className="py-8 border-b border-border bg-card/50">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
-            <div className="flex items-center gap-8">
+      <section className="py-6 sm:py-8 border-b border-border bg-card/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-col gap-6 items-center">
+            <div className="flex items-center justify-center gap-4 sm:gap-8 flex-wrap">
               <div className="text-center">
-                <p className="text-3xl font-bold text-primary">{agents.length}+</p>
-                <p className="text-sm text-muted-foreground">Expert Agents</p>
+                <p className="text-2xl sm:text-3xl font-bold text-primary">{agents.length}+</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Expert Agents</p>
               </div>
-              <div className="h-10 w-px bg-border" />
+              <div className="h-8 sm:h-10 w-px bg-border" />
               <div className="text-center">
-                <p className="text-3xl font-bold text-accent">500+</p>
-                <p className="text-sm text-muted-foreground">Properties Sold</p>
+                <p className="text-2xl sm:text-3xl font-bold text-accent">500+</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Properties Sold</p>
               </div>
-              <div className="h-10 w-px bg-border hidden md:block" />
-              <div className="text-center hidden md:block">
-                <p className="text-3xl font-bold text-primary">98%</p>
-                <p className="text-sm text-muted-foreground">Client Satisfaction</p>
+              <div className="h-8 sm:h-10 w-px bg-border hidden sm:block" />
+              <div className="text-center hidden sm:block">
+                <p className="text-2xl sm:text-3xl font-bold text-primary">98%</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Client Satisfaction</p>
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-4 w-full md:w-auto">
-              <div className="relative w-full md:w-64">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-lg">
+              <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   placeholder="Search agents..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 h-11"
                 />
               </div>
 
               <Select value={experienceFilter} onValueChange={setExperienceFilter}>
-                <SelectTrigger className="w-full md:w-40">
+                <SelectTrigger className="w-full sm:w-40 h-11">
                   <SelectValue placeholder="Experience" />
                 </SelectTrigger>
                 <SelectContent>
@@ -134,26 +134,26 @@ const AgentsPage = () => {
       </section>
 
       {/* Agents Grid */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-8">
-            <p className="text-muted-foreground">
+      <section className="py-8 sm:py-12">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between mb-6 sm:mb-8">
+            <p className="text-sm sm:text-base text-muted-foreground">
               Showing <span className="text-foreground font-semibold">{filteredAgents.length}</span> agents
             </p>
           </div>
 
           {filteredAgents.length === 0 ? (
-            <div className="text-center py-16">
-              <Users className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">
+            <div className="text-center py-12 sm:py-16">
+              <Users className="w-12 h-12 sm:w-16 sm:h-16 mx-auto text-muted-foreground/50 mb-4" />
+              <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">
                 No agents found
               </h3>
-              <p className="text-muted-foreground">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 Try adjusting your search or filter criteria
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
               {filteredAgents.map((agent, index) => (
                 <Card
                   key={agent.id}
@@ -255,19 +255,19 @@ const AgentsPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-primary to-primary/80">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+      <section className="py-10 sm:py-16 bg-gradient-to-r from-primary to-primary/80">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">
             Want to Join Our Team?
           </h2>
-          <p className="text-white/80 mb-8 max-w-2xl mx-auto">
+          <p className="text-white/80 mb-6 sm:mb-8 max-w-2xl mx-auto text-sm sm:text-base px-2">
             We're always looking for talented real estate professionals to join Alkhail. 
             If you're passionate about property and client service, we'd love to hear from you.
           </p>
           <Link to="/#contact">
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold">
+            <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold h-11 sm:h-12 px-6 sm:px-8">
               Apply Now
-              <ArrowRight className="w-5 h-5 ml-2" />
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
             </Button>
           </Link>
         </div>

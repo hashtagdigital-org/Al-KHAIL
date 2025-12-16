@@ -624,23 +624,23 @@ const AllProjectsPage = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-12 bg-gradient-to-br from-card via-card to-primary/10">
+      <section className="pt-20 sm:pt-24 pb-8 sm:pb-12 bg-gradient-to-br from-card via-card to-primary/10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="text-center max-w-3xl mx-auto">
-            <Badge className="mb-4" variant="secondary">Discover Premium Properties</Badge>
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
+            <Badge className="mb-3 sm:mb-4" variant="secondary">Discover Premium Properties</Badge>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4 px-2">
               All Real Estate Projects in Dubai
             </h1>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-sm sm:text-lg text-muted-foreground mb-6 sm:mb-8 px-4">
               Explore Dubai's finest off-plan and ready projects. Find your perfect investment with detailed insights, flexible payment plans, and Golden Visa eligibility.
             </p>
-            <div className="relative max-w-xl mx-auto">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <div className="relative max-w-xl mx-auto px-4 sm:px-0">
+              <Search className="absolute left-6 sm:left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <Input
                 placeholder="Search by project name or developer..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 h-14 text-lg"
+                className="pl-12 h-12 sm:h-14 text-base sm:text-lg"
               />
             </div>
           </div>
@@ -648,14 +648,14 @@ const AllProjectsPage = () => {
       </section>
 
       {/* Main Content */}
-      <section className="py-8">
+      <section className="py-6 sm:py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="flex gap-8">
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             {/* Desktop Sidebar Filters */}
             <aside className="hidden lg:block w-72 flex-shrink-0">
               <div className="sticky top-24">
-                <Card className="p-6 max-h-[calc(100vh-120px)] overflow-y-auto">
-                  <div className="flex items-center gap-2 mb-6">
+                <Card className="p-4 sm:p-6 max-h-[calc(100vh-120px)] overflow-y-auto">
+                  <div className="flex items-center gap-2 mb-4 sm:mb-6">
                     <Filter className="w-5 h-5 text-primary" />
                     <h2 className="font-bold text-lg text-foreground">Filters</h2>
                     {activeFiltersCount > 0 && (
@@ -857,24 +857,24 @@ const AllProjectsPage = () => {
               )}
 
               {/* Need Help Section */}
-              <Card className="p-8 mt-12 bg-gradient-to-r from-primary/10 to-[hsl(var(--luxury-gold))]/10">
-                <div className="flex flex-col md:flex-row items-center gap-6">
+              <Card className="p-4 sm:p-8 mt-8 sm:mt-12 bg-gradient-to-r from-primary/10 to-[hsl(var(--luxury-gold))]/10">
+                <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-center sm:text-left">
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <HelpCircle className="w-6 h-6 text-primary" />
-                      <h3 className="text-2xl font-bold text-foreground">Need Help Choosing a Project?</h3>
+                    <div className="flex items-center gap-2 mb-2 justify-center sm:justify-start">
+                      <HelpCircle className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                      <h3 className="text-lg sm:text-2xl font-bold text-foreground">Need Help Choosing a Project?</h3>
                     </div>
-                    <p className="text-muted-foreground">
+                    <p className="text-sm sm:text-base text-muted-foreground">
                       Our expert consultants can help you find the perfect property investment based on your goals and budget.
                     </p>
                   </div>
-                  <div className="flex gap-3">
-                    <Button onClick={handleWhatsApp} className="bg-[#25D366] hover:bg-[#25D366]/90 text-white">
+                  <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
+                    <Button onClick={handleWhatsApp} className="flex-1 sm:flex-initial bg-[#25D366] hover:bg-[#25D366]/90 text-white">
                       <MessageCircle className="w-4 h-4 mr-2" />
                       WhatsApp
                     </Button>
-                    <a href="tel:+971501234567">
-                      <Button variant="outline">
+                    <a href="tel:+971501234567" className="flex-1 sm:flex-initial">
+                      <Button variant="outline" className="w-full">
                         <Phone className="w-4 h-4 mr-2" />
                         Call Now
                       </Button>
@@ -888,77 +888,77 @@ const AllProjectsPage = () => {
       </section>
 
       {/* Trust Signals */}
-      <section className="py-12 bg-card">
+      <section className="py-8 sm:py-12 bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <Shield className="w-6 h-6 text-primary" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center">
+            <div className="flex flex-col items-center gap-1.5 sm:gap-2">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
               </div>
-              <span className="font-semibold text-foreground">RERA Certified</span>
-              <span className="text-sm text-muted-foreground">Licensed Agency</span>
+              <span className="font-semibold text-foreground text-xs sm:text-base">RERA Certified</span>
+              <span className="text-xs sm:text-sm text-muted-foreground">Licensed Agency</span>
             </div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-[hsl(var(--luxury-gold))]/10 flex items-center justify-center">
-                <Award className="w-6 h-6 text-[hsl(var(--luxury-gold))]" />
+            <div className="flex flex-col items-center gap-1.5 sm:gap-2">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[hsl(var(--luxury-gold))]/10 flex items-center justify-center">
+                <Award className="w-5 h-5 sm:w-6 sm:h-6 text-[hsl(var(--luxury-gold))]" />
               </div>
-              <span className="font-semibold text-foreground">Award Winning</span>
-              <span className="text-sm text-muted-foreground">2024 Excellence</span>
+              <span className="font-semibold text-foreground text-xs sm:text-base">Award Winning</span>
+              <span className="text-xs sm:text-sm text-muted-foreground">2024 Excellence</span>
             </div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
-                <FileCheck className="w-6 h-6 text-green-500" />
+            <div className="flex flex-col items-center gap-1.5 sm:gap-2">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-500/10 flex items-center justify-center">
+                <FileCheck className="w-5 h-5 sm:w-6 sm:h-6 text-green-500" />
               </div>
-              <span className="font-semibold text-foreground">DLD Compliant</span>
-              <span className="text-sm text-muted-foreground">Official Partner</span>
+              <span className="font-semibold text-foreground text-xs sm:text-base">DLD Compliant</span>
+              <span className="text-xs sm:text-sm text-muted-foreground">Official Partner</span>
             </div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center">
-                <Star className="w-6 h-6 text-blue-500" />
+            <div className="flex flex-col items-center gap-1.5 sm:gap-2">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500/10 flex items-center justify-center">
+                <Star className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />
               </div>
-              <span className="font-semibold text-foreground">500+ Projects</span>
-              <span className="text-sm text-muted-foreground">Sold Successfully</span>
+              <span className="font-semibold text-foreground text-xs sm:text-base">500+ Projects</span>
+              <span className="text-xs sm:text-sm text-muted-foreground">Sold Successfully</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* SEO Content */}
-      <section className="py-12 bg-background">
+      <section className="py-8 sm:py-12 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Invest in Dubai Real Estate</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6">Invest in Dubai Real Estate</h2>
           <div className="prose prose-gray dark:prose-invert max-w-none">
-            <p className="text-muted-foreground leading-relaxed mb-4">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-3 sm:mb-4">
               Dubai's real estate market offers exceptional opportunities for international investors seeking high returns, 
               Golden Visa eligibility, and world-class lifestyle properties. From luxury waterfront developments on Palm 
               Jumeirah to modern apartments in Downtown Dubai, our curated collection features projects from top developers 
               including Emaar, Damac, Meraas, and more.
             </p>
-            <p className="text-muted-foreground leading-relaxed mb-6">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4 sm:mb-6">
               Whether you're looking for off-plan projects with attractive payment plans or ready-to-move properties, 
               our expert team provides personalized guidance to help you find the perfect investment. Contact us today 
               to explore exclusive opportunities and start your Dubai property journey.
             </p>
           </div>
-          <div className="flex flex-wrap gap-4 mt-6">
+          <div className="flex flex-wrap gap-2 sm:gap-4 mt-4 sm:mt-6">
             <Link to="/agents">
-              <Button variant="link" className="text-primary">View Our Agents →</Button>
+              <Button variant="link" className="text-primary text-sm sm:text-base px-0">View Our Agents →</Button>
             </Link>
             <Link to="/#about">
-              <Button variant="link" className="text-primary">About Us →</Button>
+              <Button variant="link" className="text-primary text-sm sm:text-base px-0">About Us →</Button>
             </Link>
           </div>
         </div>
       </section>
 
       {/* Floating CTA */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col gap-3">
         <Button
           size="lg"
           onClick={handleWhatsApp}
-          className="bg-[#25D366] hover:bg-[#25D366]/90 text-white rounded-full shadow-lg"
+          className="bg-[#25D366] hover:bg-[#25D366]/90 text-white rounded-full shadow-lg w-12 h-12 sm:w-14 sm:h-14 p-0"
         >
-          <MessageCircle className="w-5 h-5" />
+          <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
         </Button>
       </div>
 
