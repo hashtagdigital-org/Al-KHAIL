@@ -148,14 +148,26 @@ const TeamSection = () => {
 
         {/* CTA Button */}
         <div className="text-center animate-fade-in" style={{ animationDelay: '600ms' }}>
-          <Button
-            size="lg"
-            onClick={() => setShowAll(!showAll)}
-            className="bg-brand-red hover:bg-brand-red/90 text-white px-8 py-6 text-base font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group"
-          >
-            {showAll ? "Show Less Agents" : "See More Agents"}
-            <ArrowRight className={`w-5 h-5 ml-2 transition-transform duration-300 ${showAll ? 'rotate-180' : 'group-hover:translate-x-1'}`} />
-          </Button>
+          {!showAll ? (
+            <Button
+              size="lg"
+              onClick={() => setShowAll(true)}
+              className="bg-brand-red hover:bg-brand-red/90 text-white px-8 py-6 text-base font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group"
+            >
+              See More Agents
+              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+            </Button>
+          ) : (
+            <Link to="/agents">
+              <Button
+                size="lg"
+                className="bg-brand-red hover:bg-brand-red/90 text-white px-8 py-6 text-base font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group"
+              >
+                View All Alkhail Agents
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
     </section>
