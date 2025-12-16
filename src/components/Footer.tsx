@@ -56,8 +56,12 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-6 sm:pt-8 border-t border-primary-foreground/10 text-center text-primary-foreground/60">
-          <p className="text-xs sm:text-sm">&copy; {new Date().getFullYear()} Al Khail Real Estate Broker LLC. All rights reserved.</p>
+        <div className="pt-6 sm:pt-8 border-t border-primary-foreground/10 text-center space-y-3">
+          <p className="text-primary-foreground/60 text-xs sm:text-sm">&copy; {new Date().getFullYear()} Al Khail Real Estate Broker LLC. All rights reserved.</p>
+          <p className="text-xs tracking-wider">
+            <span className="text-primary-foreground/40">Powered by </span>
+            <span className="text-accent font-semibold">Alkhail Real Estate Programming Team</span>
+          </p>
         </div>
       </div>
     </footer>
