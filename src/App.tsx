@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import EventLanding from "./pages/EventLanding";
 import PropertyLanding from "./pages/PropertyLanding";
+import PropertiesPage from "./pages/PropertiesPage";
 import AgentLanding from "./pages/AgentLanding";
 import NotFound from "./pages/NotFound";
 
@@ -19,6 +20,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/properties" element={<PropertiesPage />} />
           <Route path="/event/:slug" element={<EventLanding />} />
           <Route path="/property/:slug" element={<PropertyLanding />} />
           <Route path="/agent/:agentId" element={<AgentLanding />} />
