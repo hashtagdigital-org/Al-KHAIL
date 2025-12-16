@@ -9,6 +9,7 @@ import PropertyLanding from "./pages/PropertyLanding";
 import PropertiesPage from "./pages/PropertiesPage";
 import AgentLanding from "./pages/AgentLanding";
 import AgentsPage from "./pages/AgentsPage";
+import AllProjectsPage from "./pages/AllProjectsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/properties" element={<PropertiesPage />} />
+          <Route path="/projects" element={<AllProjectsPage />} />
           <Route path="/agents" element={<AgentsPage />} />
           <Route path="/event/:slug" element={<EventLanding />} />
           <Route path="/property/:slug" element={<PropertyLanding />} />
