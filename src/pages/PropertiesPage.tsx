@@ -1,230 +1,678 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { properties } from "@/data/properties";
+import { properties, Property } from "@/data/properties";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
   Bed,
   Bath,
   Maximize,
   MapPin,
-  Search,
   Building2,
   ArrowLeft,
+  Phone,
+  Mail,
+  MessageCircle,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Calendar,
+  Home,
+  Dumbbell,
+  Car,
+  Shield,
+  Waves,
+  Trees,
+  Wifi,
+  Wind,
+  Users,
+  Download,
+  TrendingUp,
+  Award,
+  Landmark,
+  Plane,
+  GraduationCap,
+  ShoppingBag,
+  Train,
+  Star,
+  Play,
+  ZoomIn,
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { useToast } from "@/hooks/use-toast";
+
+// Featured property for single property view
+const featuredProperty = properties[0];
+
+const amenityIcons: Record<string, any> = {
+  "Private Beach Access": Waves,
+  "Smart Home System": Wifi,
+  "Infinity Pool": Waves,
+  "Private Garden": Trees,
+  "Maid's Room": Users,
+  "Driver's Room": Users,
+  "Private Parking": Car,
+  "24/7 Security": Shield,
+  "Gym": Dumbbell,
+  "Steam & Sauna": Wind,
+  "Built-in Wardrobes": Home,
+  "Central A/C": Wind,
+  "Burj Khalifa View": Building2,
+  "Private Elevator": Building2,
+  "Rooftop Terrace": Trees,
+  "Italian Kitchen": Home,
+  "Study Room": Home,
+  "Concierge Service": Users,
+  "Gym & Pool Access": Dumbbell,
+  "Private Marina Berth": Waves,
+  "Home Cinema": Play,
+  "Private Gym": Dumbbell,
+  "Spa & Sauna": Wind,
+  "Landscaped Garden": Trees,
+  "Elevator": Building2,
+  "Maid's Quarters": Users,
+  "BBQ Area": Home,
+};
 
 const PropertiesPage = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [propertyType, setPropertyType] = useState("all");
-  const [priceRange, setPriceRange] = useState("all");
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const { toast } = useToast();
 
-  const filteredProperties = properties.filter((property) => {
-    const matchesSearch =
-      property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      property.location.toLowerCase().includes(searchTerm.toLowerCase());
+  const property = featuredProperty;
+  const images = property.images || [property.image];
 
-    const matchesType =
-      propertyType === "all" ||
-      property.type.toLowerCase() === propertyType.toLowerCase();
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
 
-    let matchesPrice = true;
-    if (priceRange !== "all") {
-      const priceNum = parseInt(property.price.replace(/[^0-9]/g, ""));
-      switch (priceRange) {
-        case "under-5m":
-          matchesPrice = priceNum < 5000000;
-          break;
-        case "5m-10m":
-          matchesPrice = priceNum >= 5000000 && priceNum < 10000000;
-          break;
-        case "10m-15m":
-          matchesPrice = priceNum >= 10000000 && priceNum < 15000000;
-          break;
-        case "above-15m":
-          matchesPrice = priceNum >= 15000000;
-          break;
-      }
-    }
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
-    return matchesSearch && matchesType && matchesPrice;
-  });
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Message Sent",
+      description: "Our agent will contact you shortly.",
+    });
+  };
+
+  const handleWhatsApp = () => {
+    const message = `Hi, I'm interested in ${property.title} at ${property.location}. Please share more details.`;
+    window.open(
+      `https://wa.me/${property.contact.whatsapp.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
+  };
+
+  const similarProperties = properties.filter((p) => p.id !== property.id);
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-24 pb-12 bg-gradient-to-br from-primary/10 via-background to-accent/5">
-        <div className="container mx-auto px-4">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-6 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </Link>
+      <section className="pt-20 relative">
+        <div className="relative h-[60vh] md:h-[80vh] overflow-hidden">
+          <img
+            src={images[currentImageIndex]}
+            alt={property.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-          <div className="text-center max-w-3xl mx-auto">
-            <Badge className="mb-4 bg-accent/20 text-accent border-accent/30">
-              Premium Properties
-            </Badge>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Discover Your Dream <span className="text-primary">Property</span>
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              Explore our exclusive collection of luxury properties in Dubai's
-              most prestigious locations
-            </p>
-          </div>
-        </div>
-      </section>
+          {/* Navigation Arrows */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={prevImage}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 p-3 rounded-full transition-all"
+              >
+                <ChevronLeft className="w-6 h-6 text-white" />
+              </button>
+              <button
+                onClick={nextImage}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 p-3 rounded-full transition-all"
+              >
+                <ChevronRight className="w-6 h-6 text-white" />
+              </button>
+            </>
+          )}
 
-      {/* Filters Section */}
-      <section className="py-8 border-b border-border bg-card/50">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div className="relative w-full md:w-96">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                placeholder="Search by name or location..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+          {/* Image Indicators */}
+          <div className="absolute bottom-24 md:bottom-32 left-1/2 -translate-x-1/2 flex gap-2">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentImageIndex(index)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentImageIndex
+                    ? "bg-white w-8"
+                    : "bg-white/50 hover:bg-white/70"
+                }`}
               />
-            </div>
+            ))}
+          </div>
 
-            <div className="flex flex-wrap gap-4 w-full md:w-auto">
-              <Select value={propertyType} onValueChange={setPropertyType}>
-                <SelectTrigger className="w-full md:w-40">
-                  <SelectValue placeholder="Property Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  <SelectItem value="villa">Villa</SelectItem>
-                  <SelectItem value="penthouse">Penthouse</SelectItem>
-                  <SelectItem value="apartment">Apartment</SelectItem>
-                </SelectContent>
-              </Select>
+          {/* Hero Content */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
+            <div className="container mx-auto">
+              <Link
+                to="/"
+                className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-4 transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back to Home
+              </Link>
 
-              <Select value={priceRange} onValueChange={setPriceRange}>
-                <SelectTrigger className="w-full md:w-48">
-                  <SelectValue placeholder="Price Range" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Prices</SelectItem>
-                  <SelectItem value="under-5m">Under AED 5M</SelectItem>
-                  <SelectItem value="5m-10m">AED 5M - 10M</SelectItem>
-                  <SelectItem value="10m-15m">AED 10M - 15M</SelectItem>
-                  <SelectItem value="above-15m">Above AED 15M</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                <div>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    <Badge className="bg-primary text-primary-foreground">
+                      {property.type}
+                    </Badge>
+                    <Badge className="bg-accent text-accent-foreground">
+                      {property.completion}
+                    </Badge>
+                    <Badge className="bg-white/20 text-white backdrop-blur-sm">
+                      Premium
+                    </Badge>
+                  </div>
+                  <h1 className="text-3xl md:text-5xl font-bold text-white mb-2">
+                    {property.title}
+                  </h1>
+                  <div className="flex items-center gap-2 text-white/90">
+                    <MapPin className="w-5 h-5 text-accent" />
+                    <span className="text-lg">{property.location}</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-col items-start md:items-end gap-3">
+                  <div className="text-3xl md:text-4xl font-bold text-white">
+                    {property.price}
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    <Button
+                      size="lg"
+                      className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+                      onClick={() => document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" })}
+                    >
+                      Request Details
+                    </Button>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm"
+                      onClick={() => document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" })}
+                    >
+                      <Calendar className="w-4 h-4 mr-2" />
+                      Book Viewing
+                    </Button>
+                    <Button
+                      size="lg"
+                      className="bg-green-600 hover:bg-green-700 text-white"
+                      onClick={handleWhatsApp}
+                    >
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      WhatsApp
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Properties Grid */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-8">
-            <p className="text-muted-foreground">
-              Showing <span className="text-foreground font-semibold">{filteredProperties.length}</span> properties
-            </p>
+      {/* Sticky CTA Bar */}
+      <div className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b border-border py-3 hidden md:block">
+        <div className="container mx-auto px-4 flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <span className="font-bold text-foreground">{property.title}</span>
+            <span className="text-2xl font-bold text-primary">{property.price}</span>
           </div>
+          <div className="flex gap-3">
+            <Button onClick={handleWhatsApp} className="bg-green-600 hover:bg-green-700">
+              <MessageCircle className="w-4 h-4 mr-2" />
+              WhatsApp
+            </Button>
+            <Button
+              onClick={() => document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" })}
+              className="bg-primary hover:bg-primary/90"
+            >
+              Contact Agent
+            </Button>
+          </div>
+        </div>
+      </div>
 
-          {filteredProperties.length === 0 ? (
-            <div className="text-center py-16">
-              <Building2 className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                No properties found
-              </h3>
-              <p className="text-muted-foreground">
-                Try adjusting your search or filter criteria
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-12">
+            {/* Property Overview */}
+            <section className="animate-fade-in">
+              <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+                <Building2 className="w-6 h-6 text-primary" />
+                Property Overview
+              </h2>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                {property.description}
               </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProperties.map((property) => (
-                <Link key={property.id} to={`/property/${property.slug}`}>
-                  <Card className="group overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 cursor-pointer h-full">
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={property.image}
-                        alt={property.title}
-                        className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute top-4 left-4 flex gap-2">
-                        <Badge className="bg-primary text-primary-foreground">
-                          {property.type}
-                        </Badge>
-                        <Badge className="bg-accent/90 text-accent-foreground">
-                          {property.completion}
-                        </Badge>
-                      </div>
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                        <p className="text-2xl font-bold text-white">
-                          {property.price}
-                        </p>
-                      </div>
+              <div className="grid grid-cols-3 gap-4 mt-6">
+                <div className="text-center p-4 bg-primary/5 rounded-xl">
+                  <p className="text-3xl font-bold text-primary">{property.bedrooms}</p>
+                  <p className="text-muted-foreground text-sm">Bedrooms</p>
+                </div>
+                <div className="text-center p-4 bg-primary/5 rounded-xl">
+                  <p className="text-3xl font-bold text-primary">{property.bathrooms}</p>
+                  <p className="text-muted-foreground text-sm">Bathrooms</p>
+                </div>
+                <div className="text-center p-4 bg-primary/5 rounded-xl">
+                  <p className="text-3xl font-bold text-primary">{property.sqft}</p>
+                  <p className="text-muted-foreground text-sm">Sq. Ft.</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Property Details */}
+            <section className="animate-fade-in">
+              <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                <Home className="w-6 h-6 text-primary" />
+                Property Details
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {[
+                  { label: "Price", value: property.price },
+                  { label: "Bedrooms", value: property.bedrooms },
+                  { label: "Bathrooms", value: property.bathrooms },
+                  { label: "Size", value: `${property.sqft} sqft` },
+                  { label: "Property Type", value: property.type },
+                  { label: "Completion", value: property.completion },
+                  { label: "Developer", value: property.developer },
+                  { label: "Location", value: property.location },
+                  { label: "Payment Plan", value: property.paymentPlan ? "Available" : "N/A" },
+                ].map((detail, index) => (
+                  <div
+                    key={index}
+                    className="p-4 border border-border rounded-xl hover:border-primary/50 transition-colors"
+                  >
+                    <p className="text-sm text-muted-foreground">{detail.label}</p>
+                    <p className="font-semibold text-foreground">{detail.value}</p>
+                  </div>
+                ))}
+              </div>
+              {property.paymentPlan && (
+                <div className="mt-4 p-4 bg-accent/10 border border-accent/30 rounded-xl">
+                  <p className="text-sm text-accent font-semibold mb-1">Payment Plan</p>
+                  <p className="text-foreground">{property.paymentPlan}</p>
+                </div>
+              )}
+            </section>
+
+            {/* Image Gallery */}
+            <section className="animate-fade-in">
+              <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                <ZoomIn className="w-6 h-6 text-primary" />
+                Image Gallery
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {images.map((image, index) => (
+                  <div
+                    key={index}
+                    onClick={() => openLightbox(index)}
+                    className="relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer group"
+                  >
+                    <img
+                      src={image}
+                      alt={`${property.title} - Image ${index + 1}`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                      <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
+                  </div>
+                ))}
+              </div>
+            </section>
 
-                    <CardContent className="p-5">
-                      <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                        {property.title}
-                      </h3>
-
-                      <div className="flex items-center gap-1 text-muted-foreground mb-4">
-                        <MapPin className="w-4 h-4 text-primary" />
-                        <span className="text-sm">{property.location}</span>
+            {/* Amenities & Features */}
+            <section className="animate-fade-in">
+              <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                <Star className="w-6 h-6 text-primary" />
+                Amenities & Features
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {property.amenities.map((amenity, index) => {
+                  const IconComponent = amenityIcons[amenity] || Home;
+                  return (
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 p-4 bg-card border border-border rounded-xl hover:border-primary/50 hover:shadow-lg transition-all"
+                    >
+                      <div className="p-2 bg-primary/10 rounded-lg">
+                        <IconComponent className="w-5 h-5 text-primary" />
                       </div>
+                      <span className="text-sm font-medium text-foreground">{amenity}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
 
-                      <div className="flex items-center justify-between pt-4 border-t border-border">
-                        <div className="flex items-center gap-1 text-muted-foreground">
-                          <Bed className="w-4 h-4" />
-                          <span className="text-sm">{property.bedrooms}</span>
-                        </div>
-                        <div className="flex items-center gap-1 text-muted-foreground">
-                          <Bath className="w-4 h-4" />
-                          <span className="text-sm">{property.bathrooms}</span>
-                        </div>
-                        <div className="flex items-center gap-1 text-muted-foreground">
-                          <Maximize className="w-4 h-4" />
-                          <span className="text-sm">{property.sqft} sqft</span>
-                        </div>
-                      </div>
+            {/* Location Section */}
+            <section className="animate-fade-in">
+              <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                <MapPin className="w-6 h-6 text-primary" />
+                Location
+              </h2>
+              <div className="rounded-xl overflow-hidden border border-border">
+                <div className="h-[300px] bg-muted flex items-center justify-center">
+                  <div className="text-center">
+                    <MapPin className="w-16 h-16 text-primary mx-auto mb-4" />
+                    <p className="text-lg font-semibold text-foreground">{property.location}</p>
+                    <p className="text-muted-foreground">Interactive map coming soon</p>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                {[
+                  { icon: Train, label: "Metro Station", distance: "5 min" },
+                  { icon: ShoppingBag, label: "Dubai Mall", distance: "10 min" },
+                  { icon: GraduationCap, label: "Schools", distance: "8 min" },
+                  { icon: Plane, label: "Airport", distance: "25 min" },
+                ].map((place, index) => (
+                  <div key={index} className="flex items-center gap-3 p-3 bg-card border border-border rounded-lg">
+                    <place.icon className="w-5 h-5 text-accent" />
+                    <div>
+                      <p className="text-sm font-medium text-foreground">{place.label}</p>
+                      <p className="text-xs text-muted-foreground">{place.distance}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
 
-                      <div className="flex flex-wrap gap-2 mt-4">
-                        {property.features.slice(0, 2).map((feature, index) => (
-                          <Badge
-                            key={index}
-                            variant="outline"
-                            className="text-xs border-border text-muted-foreground"
-                          >
-                            {feature}
-                          </Badge>
-                        ))}
+            {/* Floor Plans */}
+            <section className="animate-fade-in">
+              <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                <Landmark className="w-6 h-6 text-primary" />
+                Floor Plans
+              </h2>
+              <div className="border border-border rounded-xl p-8 bg-card">
+                <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-4">
+                  <div className="text-center">
+                    <Home className="w-16 h-16 text-muted-foreground mx-auto mb-2" />
+                    <p className="text-muted-foreground">Floor plan visualization</p>
+                  </div>
+                </div>
+                <Button variant="outline" className="w-full">
+                  <Download className="w-4 h-4 mr-2" />
+                  Download Floor Plan PDF
+                </Button>
+              </div>
+            </section>
+
+            {/* Investment Highlights */}
+            <section className="animate-fade-in">
+              <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                <TrendingUp className="w-6 h-6 text-primary" />
+                Investment Highlights
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                {[
+                  {
+                    title: "ROI Potential",
+                    value: "7-9%",
+                    description: "Expected annual rental yield in this premium location",
+                    icon: TrendingUp,
+                  },
+                  {
+                    title: "Rental Demand",
+                    value: "High",
+                    description: "Strong demand from expats and tourists year-round",
+                    icon: Users,
+                  },
+                  {
+                    title: "Capital Appreciation",
+                    value: "12%+",
+                    description: "Historical annual property value increase",
+                    icon: Award,
+                  },
+                  {
+                    title: "Golden Visa",
+                    value: "Eligible",
+                    description: "Property qualifies for UAE Golden Visa program",
+                    icon: Star,
+                  },
+                ].map((highlight, index) => (
+                  <Card key={index} className="border-border hover:border-primary/50 transition-colors">
+                    <CardContent className="p-6">
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-primary/10 rounded-xl">
+                          <highlight.icon className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-sm text-muted-foreground">{highlight.title}</p>
+                          <p className="text-2xl font-bold text-foreground mb-1">{highlight.value}</p>
+                          <p className="text-sm text-muted-foreground">{highlight.description}</p>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
-                </Link>
+                ))}
+              </div>
+            </section>
+          </div>
+
+          {/* Sidebar - Agent Contact */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-36 space-y-6">
+              {/* Agent Card */}
+              <Card className="border-border overflow-hidden" id="contact-form">
+                <div className="bg-gradient-to-r from-primary to-primary/80 p-6 text-center">
+                  <div className="w-24 h-24 rounded-full bg-white/20 mx-auto mb-4 flex items-center justify-center">
+                    <Users className="w-12 h-12 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white">Ahmed Al Mansouri</h3>
+                  <p className="text-white/80">Senior Property Consultant</p>
+                  <div className="flex justify-center gap-1 mt-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star key={star} className="w-4 h-4 text-accent fill-accent" />
+                    ))}
+                  </div>
+                </div>
+                <CardContent className="p-6 space-y-4">
+                  <Button
+                    className="w-full bg-green-600 hover:bg-green-700 text-white"
+                    onClick={handleWhatsApp}
+                  >
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    WhatsApp
+                  </Button>
+                  <Button variant="outline" className="w-full" asChild>
+                    <a href={`tel:${property.contact.phone}`}>
+                      <Phone className="w-4 h-4 mr-2" />
+                      {property.contact.phone}
+                    </a>
+                  </Button>
+                  <Button variant="outline" className="w-full" asChild>
+                    <a href={`mailto:${property.contact.email}`}>
+                      <Mail className="w-4 h-4 mr-2" />
+                      Email Agent
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Contact Form */}
+              <Card className="border-border">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-bold text-foreground mb-4">Send Inquiry</h3>
+                  <form onSubmit={handleContactSubmit} className="space-y-4">
+                    <Input placeholder="Your Name" required />
+                    <Input type="email" placeholder="Email Address" required />
+                    <Input type="tel" placeholder="Phone Number" required />
+                    <Textarea
+                      placeholder={`I'm interested in ${property.title}. Please contact me with more details.`}
+                      rows={4}
+                    />
+                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
+                      Send Message
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+
+              {/* Trust Signals */}
+              <Card className="border-border bg-card/50">
+                <CardContent className="p-6 space-y-4">
+                  <div className="flex items-center gap-3">
+                    <Shield className="w-5 h-5 text-primary" />
+                    <span className="text-sm text-muted-foreground">Verified Property Listing</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Award className="w-5 h-5 text-accent" />
+                    <span className="text-sm text-muted-foreground">Award-Winning Agency</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Building2 className="w-5 h-5 text-primary" />
+                    <span className="text-sm text-muted-foreground">Developer: {property.developer}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+
+        {/* Similar Properties */}
+        <section className="mt-16 animate-fade-in">
+          <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+            <Building2 className="w-6 h-6 text-primary" />
+            Similar Properties
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {similarProperties.map((prop) => (
+              <Link key={prop.id} to={`/property/${prop.slug}`}>
+                <Card className="group overflow-hidden border-border hover:border-primary/50 transition-all hover:shadow-xl cursor-pointer h-full">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={prop.image}
+                      alt={prop.title}
+                      className="w-full h-52 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute top-3 left-3 flex gap-2">
+                      <Badge className="bg-primary text-primary-foreground text-xs">{prop.type}</Badge>
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                      <p className="text-xl font-bold text-white">{prop.price}</p>
+                    </div>
+                  </div>
+                  <CardContent className="p-4">
+                    <h3 className="font-bold text-foreground group-hover:text-primary transition-colors">
+                      {prop.title}
+                    </h3>
+                    <div className="flex items-center gap-1 text-muted-foreground text-sm mt-1">
+                      <MapPin className="w-3 h-3" />
+                      {prop.location}
+                    </div>
+                    <div className="flex items-center gap-4 mt-3 pt-3 border-t border-border text-sm text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <Bed className="w-4 h-4" /> {prop.bedrooms}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Bath className="w-4 h-4" /> {prop.bathrooms}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Maximize className="w-4 h-4" /> {prop.sqft}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* Lightbox Dialog */}
+      <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
+        <DialogContent className="max-w-5xl p-0 bg-black/95 border-none">
+          <button
+            onClick={() => setLightboxOpen(false)}
+            className="absolute top-4 right-4 z-50 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+          >
+            <X className="w-6 h-6 text-white" />
+          </button>
+          <div className="relative">
+            <img
+              src={images[lightboxIndex]}
+              alt={`${property.title} - Image ${lightboxIndex + 1}`}
+              className="w-full h-auto max-h-[85vh] object-contain"
+            />
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={() => setLightboxIndex((prev) => (prev - 1 + images.length) % images.length)}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                >
+                  <ChevronLeft className="w-6 h-6 text-white" />
+                </button>
+                <button
+                  onClick={() => setLightboxIndex((prev) => (prev + 1) % images.length)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                >
+                  <ChevronRight className="w-6 h-6 text-white" />
+                </button>
+              </>
+            )}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setLightboxIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    index === lightboxIndex ? "bg-white w-6" : "bg-white/50"
+                  }`}
+                />
               ))}
             </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </DialogContent>
+      </Dialog>
 
-      <Footer />
+      {/* Mobile Sticky CTA */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-border md:hidden z-50">
+        <div className="flex gap-3">
+          <Button className="flex-1 bg-green-600 hover:bg-green-700" onClick={handleWhatsApp}>
+            <MessageCircle className="w-4 h-4 mr-2" />
+            WhatsApp
+          </Button>
+          <Button
+            className="flex-1 bg-primary hover:bg-primary/90"
+            onClick={() => document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" })}
+          >
+            <Phone className="w-4 h-4 mr-2" />
+            Contact
+          </Button>
+        </div>
+      </div>
+
+      <div className="pb-20 md:pb-0">
+        <Footer />
+      </div>
     </div>
   );
 };
