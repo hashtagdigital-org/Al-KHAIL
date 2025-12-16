@@ -12,8 +12,9 @@ const Navigation = () => {
   const navLinks = [
     { href: "#home", label: "Home", isAnchor: true },
     { href: "#about", label: "About Us", isAnchor: true },
+    { href: "/projects", label: "All Projects", isAnchor: false },
     { href: "/properties", label: "Single Property", isAnchor: false },
-    { href: "#team", label: "Our Team", isAnchor: true },
+    { href: "/agents", label: "Our Agents", isAnchor: false },
     { href: "#contact", label: "Contact", isAnchor: true },
   ];
 
