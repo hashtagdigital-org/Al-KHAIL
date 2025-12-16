@@ -39,6 +39,11 @@ import {
   Users,
   DollarSign,
   Briefcase,
+  Search,
+  Filter,
+  X,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -63,6 +68,30 @@ const AgentLanding = () => {
     budget: "",
     message: "",
   });
+  
+  // Property search state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedType, setSelectedType] = useState("All");
+  const [selectedStatus, setSelectedStatus] = useState("All");
+  const [selectedLocation, setSelectedLocation] = useState("All");
+  const [showAllProjects, setShowAllProjects] = useState(false);
+  
+  // Get unique values for filters
+  const propertyTypes = ["All", ...new Set(agent.projects.map(p => p.type))];
+  const propertyStatuses = ["All", ...new Set(agent.projects.map(p => p.status))];
+  const propertyLocations = ["All", ...new Set(agent.projects.map(p => p.location))];
+  
+  // Filter projects
+  const filteredProjects = agent.projects.filter(project => {
+    const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         project.location.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesType = selectedType === "All" || project.type === selectedType;
+    const matchesStatus = selectedStatus === "All" || project.status === selectedStatus;
+    const matchesLocation = selectedLocation === "All" || project.location === selectedLocation;
+    return matchesSearch && matchesType && matchesStatus && matchesLocation;
+  });
+  
+  const displayedProjects = showAllProjects ? filteredProjects : filteredProjects.slice(0, 6);
 
   if (!agent) {
     return (
@@ -375,48 +404,206 @@ const AgentLanding = () => {
       <section className="py-16 bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <h2 className="text-3xl font-bold text-center mb-4 text-foreground">Featured Properties</h2>
-          <p className="text-center text-muted-foreground mb-12">
+          <p className="text-center text-muted-foreground mb-8">
             Properties managed and sold by {agent.name.split(" ")[0]}
           </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {agent.projects.map((project) => (
-              <Card key={project.id} className="overflow-hidden group hover:shadow-xl transition-all">
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                    <Badge className={`${
-                      project.status === "Sold" 
-                        ? "bg-green-500" 
-                        : project.status === "Active" 
-                        ? "bg-primary" 
-                        : "bg-blue-500"
-                    } text-white border-0`}>
-                      {project.status}
-                    </Badge>
-                    <Badge className="bg-[hsl(var(--luxury-gold))] text-white border-0">
-                      {project.year}
-                    </Badge>
+          
+          {/* Advanced Search */}
+          <Card className="p-6 mb-8">
+            <div className="flex items-center gap-2 mb-4">
+              <Filter className="w-5 h-5 text-primary" />
+              <h3 className="font-semibold text-foreground">Search & Filter Properties</h3>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Search Input */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search properties..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+              
+              {/* Type Filter */}
+              <Select value={selectedType} onValueChange={setSelectedType}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Property Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  {propertyTypes.map((type) => (
+                    <SelectItem key={type} value={type}>{type}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              
+              {/* Status Filter */}
+              <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  {propertyStatuses.map((status) => (
+                    <SelectItem key={status} value={status}>{status}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              
+              {/* Location Filter */}
+              <Select value={selectedLocation} onValueChange={setSelectedLocation}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Location" />
+                </SelectTrigger>
+                <SelectContent>
+                  {propertyLocations.map((location) => (
+                    <SelectItem key={location} value={location}>{location}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            {/* Active Filters */}
+            {(searchQuery || selectedType !== "All" || selectedStatus !== "All" || selectedLocation !== "All") && (
+              <div className="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-border">
+                <span className="text-sm text-muted-foreground">Active filters:</span>
+                {searchQuery && (
+                  <Badge variant="secondary" className="flex items-center gap-1">
+                    Search: {searchQuery}
+                    <button onClick={() => setSearchQuery("")}><X className="w-3 h-3" /></button>
+                  </Badge>
+                )}
+                {selectedType !== "All" && (
+                  <Badge variant="secondary" className="flex items-center gap-1">
+                    Type: {selectedType}
+                    <button onClick={() => setSelectedType("All")}><X className="w-3 h-3" /></button>
+                  </Badge>
+                )}
+                {selectedStatus !== "All" && (
+                  <Badge variant="secondary" className="flex items-center gap-1">
+                    Status: {selectedStatus}
+                    <button onClick={() => setSelectedStatus("All")}><X className="w-3 h-3" /></button>
+                  </Badge>
+                )}
+                {selectedLocation !== "All" && (
+                  <Badge variant="secondary" className="flex items-center gap-1">
+                    Location: {selectedLocation}
+                    <button onClick={() => setSelectedLocation("All")}><X className="w-3 h-3" /></button>
+                  </Badge>
+                )}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSelectedType("All");
+                    setSelectedStatus("All");
+                    setSelectedLocation("All");
+                  }}
+                  className="text-primary"
+                >
+                  Clear all
+                </Button>
+              </div>
+            )}
+            
+            {/* Results count */}
+            <p className="text-sm text-muted-foreground mt-4">
+              Showing {displayedProjects.length} of {filteredProjects.length} properties
+            </p>
+          </Card>
+          
+          {/* Properties Grid */}
+          {displayedProjects.length > 0 ? (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {displayedProjects.map((project) => (
+                <Card key={project.id} className="overflow-hidden group hover:shadow-xl transition-all">
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                      <Badge className={`${
+                        project.status === "Sold" 
+                          ? "bg-green-500" 
+                          : project.status === "Active" 
+                          ? "bg-primary" 
+                          : "bg-blue-500"
+                      } text-white border-0`}>
+                        {project.status}
+                      </Badge>
+                      <Badge className="bg-[hsl(var(--luxury-gold))] text-white border-0">
+                        {project.year}
+                      </Badge>
+                    </div>
                   </div>
-                </div>
-                <div className="p-6">
-                  <Badge variant="outline" className="mb-2">{project.type}</Badge>
-                  <h3 className="text-xl font-bold mb-2 text-foreground">{project.title}</h3>
-                  <div className="flex items-center gap-1 text-muted-foreground text-sm mb-3">
-                    <MapPin className="w-4 h-4" />
-                    {project.location}
+                  <div className="p-6">
+                    <Badge variant="outline" className="mb-2">{project.type}</Badge>
+                    <h3 className="text-xl font-bold mb-2 text-foreground">{project.title}</h3>
+                    <div className="flex items-center gap-1 text-muted-foreground text-sm mb-3">
+                      <MapPin className="w-4 h-4" />
+                      {project.location}
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-2xl font-bold text-primary">{project.price}</span>
+                      <Button size="sm" variant="outline">View Details</Button>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-primary">{project.price}</span>
-                    <Button size="sm" variant="outline">View Details</Button>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card className="p-12 text-center">
+              <Search className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+              <h3 className="text-xl font-semibold text-foreground mb-2">No properties found</h3>
+              <p className="text-muted-foreground mb-4">Try adjusting your search filters</p>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedType("All");
+                  setSelectedStatus("All");
+                  setSelectedLocation("All");
+                }}
+              >
+                Clear Filters
+              </Button>
+            </Card>
+          )}
+          
+          {/* Show All / Show Less Button */}
+          {filteredProjects.length > 6 && (
+            <div className="text-center mt-8">
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => setShowAllProjects(!showAllProjects)}
+                className="min-w-[200px]"
+              >
+                {showAllProjects ? (
+                  <>
+                    <ChevronUp className="w-4 h-4 mr-2" />
+                    Show Less
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="w-4 h-4 mr-2" />
+                    View All {filteredProjects.length} Projects
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
         </div>
       </section>
 
