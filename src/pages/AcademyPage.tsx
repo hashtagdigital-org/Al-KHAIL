@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -172,40 +173,45 @@ const AcademyPage = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {courses.map((course) => (
-                <Card key={course.id} className="bg-card border-border/50 hover:shadow-lg transition-all duration-300 group">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between gap-3">
-                      <Badge variant="outline" className="text-xs font-medium">
-                        {course.category}
-                      </Badge>
-                      <Badge className={`text-xs capitalize ${getStatusColor(course.status)}`}>
-                        {course.status}
-                      </Badge>
-                    </div>
-                    <CardTitle className="text-lg font-semibold text-foreground mt-3 group-hover:text-accent transition-colors">
-                      {course.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-                      {course.description}
-                    </p>
-                    <div className="flex items-center justify-between text-sm text-muted-foreground border-t border-border/50 pt-4">
-                      <div className="flex items-center gap-1.5">
-                        <Calendar className="w-4 h-4" />
-                        <span>{format(new Date(course.date), 'MMM d, yyyy')}</span>
+                <Link key={course.id} to={`/course/${course.slug}`}>
+                  <Card className="bg-card border-border/50 hover:shadow-lg transition-all duration-300 group h-full">
+                    <CardHeader className="pb-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <Badge variant="outline" className="text-xs font-medium">
+                          {course.category}
+                        </Badge>
+                        <Badge className={`text-xs capitalize ${getStatusColor(course.status)}`}>
+                          {course.status}
+                        </Badge>
                       </div>
-                      <div className="flex items-center gap-1.5">
-                        <Clock className="w-4 h-4" />
-                        <span>{course.duration}</span>
+                      <CardTitle className="text-lg font-semibold text-foreground mt-3 group-hover:text-accent transition-colors">
+                        {course.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                        {course.description}
+                      </p>
+                      <div className="flex items-center justify-between text-sm text-muted-foreground border-t border-border/50 pt-4">
+                        <div className="flex items-center gap-1.5">
+                          <Calendar className="w-4 h-4" />
+                          <span>{format(new Date(course.date), 'MMM d, yyyy')}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Clock className="w-4 h-4" />
+                          <span>{course.duration}</span>
+                        </div>
                       </div>
-                    </div>
-                    <Button variant="ghost" size="sm" className="mt-4 w-full group-hover:bg-accent/10 group-hover:text-accent">
-                      Read More
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
+                      <div className="flex items-center justify-between mt-4 pt-3 border-t border-border/50">
+                        <span className="font-semibold text-foreground">{course.price}</span>
+                        <span className="text-accent text-sm font-medium group-hover:underline flex items-center gap-1">
+                          View Details
+                          <ArrowRight className="w-3 h-3" />
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
             </div>
           </div>
