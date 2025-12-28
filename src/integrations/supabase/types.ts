@@ -14,16 +14,199 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      candidates: {
+        Row: {
+          created_at: string
+          email: string | null
+          exam_id: string
+          full_name: string
+          id: string
+          passport_id: string
+          score: number | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          exam_id: string
+          full_name: string
+          id?: string
+          passport_id: string
+          score?: number | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          exam_id?: string
+          full_name?: string
+          id?: string
+          passport_id?: string
+          score?: number | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "candidates_exam_id_fkey"
+            columns: ["exam_id"]
+            isOneToOne: false
+            referencedRelation: "exams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      certificates: {
+        Row: {
+          candidate_id: string
+          certificate_id: string
+          created_at: string
+          exam_id: string
+          id: string
+          is_valid: boolean
+          issue_date: string
+          issued_by: string | null
+        }
+        Insert: {
+          candidate_id: string
+          certificate_id: string
+          created_at?: string
+          exam_id: string
+          id?: string
+          is_valid?: boolean
+          issue_date?: string
+          issued_by?: string | null
+        }
+        Update: {
+          candidate_id?: string
+          certificate_id?: string
+          created_at?: string
+          exam_id?: string
+          id?: string
+          is_valid?: boolean
+          issue_date?: string
+          issued_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "certificates_candidate_id_fkey"
+            columns: ["candidate_id"]
+            isOneToOne: false
+            referencedRelation: "candidates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "certificates_exam_id_fkey"
+            columns: ["exam_id"]
+            isOneToOne: false
+            referencedRelation: "exams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exams: {
+        Row: {
+          course_name: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          exam_date: string
+          id: string
+          is_active: boolean
+          passing_score: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          course_name: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          exam_date: string
+          id?: string
+          is_active?: boolean
+          passing_score?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          course_name?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          exam_date?: string
+          id?: string
+          is_active?: boolean
+          passing_score?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_certificate_id: { Args: never; Returns: string }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_admin: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "super_admin" | "academy_manager" | "examiner"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +333,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["super_admin", "academy_manager", "examiner"],
+    },
   },
 } as const
