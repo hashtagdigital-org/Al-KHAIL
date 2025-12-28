@@ -6,6 +6,12 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { 
   GraduationCap, 
   Award, 
   BookOpen, 
@@ -17,7 +23,8 @@ import {
   Scale,
   TrendingUp,
   Shield,
-  Clock
+  Clock,
+  HelpCircle
 } from 'lucide-react';
 import { courses, insights, academyStats } from '@/data/academy';
 import { format } from 'date-fns';
@@ -313,6 +320,98 @@ const AcademyPage = () => {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-16 md:py-24 bg-card/30">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+              <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-6">
+                <HelpCircle className="w-7 h-7 text-accent" />
+              </div>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-muted-foreground text-lg">
+                Find answers to common questions about our programs, certifications, and enrollment process
+              </p>
+            </div>
+
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="space-y-4">
+                {[
+                  {
+                    category: 'Certifications',
+                    question: 'What certifications do I receive upon completing a course?',
+                    answer: 'Upon successful completion, you will receive an Alkhail Real Estate Academy Certificate of Completion. Our professional certification programs also prepare you for RERA broker examination and provide credentials recognized within the UAE real estate industry.'
+                  },
+                  {
+                    category: 'Certifications',
+                    question: 'Are your certifications recognized by RERA?',
+                    answer: 'Our curriculum is aligned with RERA educational requirements. While we provide our own academy certification, our broker training programs specifically prepare candidates for the official RERA broker examination required for practicing in Dubai.'
+                  },
+                  {
+                    category: 'Schedules',
+                    question: 'What is the typical course schedule?',
+                    answer: 'Most courses run for 4-8 weeks with sessions held 2-3 times per week. We offer both weekday and weekend batches to accommodate working professionals. Intensive boot camps are also available for those seeking accelerated learning.'
+                  },
+                  {
+                    category: 'Schedules',
+                    question: 'Do you offer online or hybrid learning options?',
+                    answer: 'Yes, we offer flexible learning formats including in-person classes at our Dubai campus, live online sessions, and hybrid programs that combine both. Online participants have full access to recorded sessions and digital course materials.'
+                  },
+                  {
+                    category: 'Prerequisites',
+                    question: 'What are the prerequisites for enrolling in your programs?',
+                    answer: 'Prerequisites vary by program. Entry-level courses require no prior experience, while advanced certifications may require completion of foundational courses or relevant industry experience. Each course page details specific requirements.'
+                  },
+                  {
+                    category: 'Prerequisites',
+                    question: 'Do I need real estate experience to join?',
+                    answer: 'Not for our foundational programs. We welcome career changers, new graduates, and professionals from other industries. Our Real Estate Fundamentals course is specifically designed for those entering the field without prior experience.'
+                  },
+                  {
+                    category: 'Career Outcomes',
+                    question: 'What career opportunities can I expect after completing the programs?',
+                    answer: 'Our graduates pursue careers as licensed real estate brokers, property consultants, investment advisors, and property managers. Many join leading real estate firms in Dubai, while others start their own agencies. We provide career guidance and industry networking opportunities.'
+                  },
+                  {
+                    category: 'Career Outcomes',
+                    question: 'Do you offer job placement assistance?',
+                    answer: 'We provide career support including resume building, interview preparation, and access to our industry partner network. While we don\'t guarantee placement, our strong industry connections and reputation help graduates connect with potential employers.'
+                  },
+                  {
+                    category: 'Enrollment',
+                    question: 'How do I enroll in a course?',
+                    answer: 'You can enroll through our website by selecting your desired course and completing the registration form. Payment can be made online via credit card or bank transfer. For corporate enrollments or group bookings, please contact our admissions team directly.'
+                  },
+                  {
+                    category: 'Enrollment',
+                    question: 'What is your refund policy?',
+                    answer: 'We offer a full refund if cancellation is made at least 14 days before the course start date. Cancellations within 7-14 days receive a 50% refund or credit toward a future course. No refunds are provided for cancellations less than 7 days before the start date.'
+                  }
+                ].map((faq, index) => (
+                  <AccordionItem 
+                    key={index} 
+                    value={`faq-${index}`}
+                    className="bg-background border border-border/50 rounded-lg px-6 data-[state=open]:border-accent/30"
+                  >
+                    <AccordionTrigger className="text-left hover:no-underline py-5">
+                      <div className="flex items-start gap-4">
+                        <span className="text-foreground font-medium">{faq.question}</span>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Badge variant="outline" className="text-xs">{faq.category}</Badge>
+                      </div>
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </div>
           </div>
         </section>
