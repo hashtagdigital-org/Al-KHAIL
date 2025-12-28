@@ -181,7 +181,14 @@ const AcademyPage = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {courses.map((course) => (
                 <Link key={course.id} to={`/course/${course.slug}`}>
-                  <Card className="bg-card border-border/50 hover:shadow-lg transition-all duration-300 group h-full">
+                  <Card className="bg-card border-border/50 hover:shadow-lg transition-all duration-300 group h-full overflow-hidden">
+                    <div className="aspect-[16/10] overflow-hidden">
+                      <img 
+                        src={course.image} 
+                        alt={course.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
                     <CardHeader className="pb-3">
                       <div className="flex items-start justify-between gap-3">
                         <Badge variant="outline" className="text-xs font-medium">

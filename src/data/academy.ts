@@ -19,6 +19,7 @@ export interface Course {
   title: string;
   description: string;
   fullDescription: string;
+  image: string;
   date: string;
   status: 'upcoming' | 'completed' | 'ongoing';
   duration: string;
@@ -72,6 +73,13 @@ const instructors: Instructor[] = [
   }
 ];
 
+import courseFundamentals from '@/assets/course-fundamentals.jpg';
+import courseRera from '@/assets/course-rera.jpg';
+import courseValuation from '@/assets/course-valuation.jpg';
+import courseInvestment from '@/assets/course-investment.jpg';
+import courseNegotiation from '@/assets/course-negotiation.jpg';
+import courseOffplan from '@/assets/course-offplan.jpg';
+
 export const courses: Course[] = [
   {
     id: '1',
@@ -79,6 +87,7 @@ export const courses: Course[] = [
     title: 'Dubai Real Estate Fundamentals',
     description: 'Comprehensive training on Dubai property laws, regulations, and market dynamics for aspiring real estate professionals.',
     fullDescription: 'This foundational program provides a comprehensive understanding of Dubai\'s real estate ecosystem. From legal frameworks to market dynamics, participants gain the essential knowledge required to begin a successful career in UAE real estate. The course combines theoretical learning with practical case studies from actual Dubai transactions.',
+    image: courseFundamentals,
     date: '2025-01-15',
     status: 'upcoming',
     duration: '4 weeks',
@@ -122,6 +131,7 @@ export const courses: Course[] = [
     title: 'RERA Compliance & Regulations',
     description: 'In-depth workshop covering Real Estate Regulatory Agency requirements and compliance standards in the UAE.',
     fullDescription: 'This intensive workshop provides comprehensive coverage of RERA regulations and compliance requirements. Led by a former RERA compliance officer, participants gain insider knowledge on maintaining regulatory standards and avoiding common compliance pitfalls.',
+    image: courseRera,
     date: '2025-01-20',
     status: 'upcoming',
     duration: '2 weeks',
@@ -160,6 +170,7 @@ export const courses: Course[] = [
     title: 'Property Valuation Masterclass',
     description: 'Professional certification program on property valuation methodologies and market analysis techniques.',
     fullDescription: 'This advanced masterclass equips participants with professional property valuation skills. Learn industry-standard methodologies, market analysis techniques, and reporting standards used by leading valuation firms in the UAE.',
+    image: courseValuation,
     date: '2024-12-10',
     status: 'completed',
     duration: '3 weeks',
@@ -198,6 +209,7 @@ export const courses: Course[] = [
     title: 'Investment Analysis for Real Estate',
     description: 'Advanced training on ROI calculations, market forecasting, and investment portfolio management.',
     fullDescription: 'This comprehensive program develops advanced skills in real estate investment analysis. Participants learn to evaluate investment opportunities, calculate returns, and build diversified property portfolios aligned with client objectives.',
+    image: courseInvestment,
     date: '2025-02-01',
     status: 'upcoming',
     duration: '5 weeks',
@@ -241,6 +253,7 @@ export const courses: Course[] = [
     title: 'Client Relations & Negotiation',
     description: 'Professional development workshop focusing on client management and negotiation strategies.',
     fullDescription: 'This intensive workshop enhances professional skills in client relationship management and negotiation. Participants learn proven techniques for building lasting client relationships and achieving successful outcomes in property transactions.',
+    image: courseNegotiation,
     date: '2024-11-25',
     status: 'completed',
     duration: '1 week',
@@ -274,6 +287,7 @@ export const courses: Course[] = [
     title: 'Off-Plan Sales Certification',
     description: 'Specialized training on off-plan property sales, developer partnerships, and project launches.',
     fullDescription: 'This specialized certification focuses on the unique aspects of off-plan property sales in Dubai. Learn to work with developers, understand project launches, and effectively market properties before completion.',
+    image: courseOffplan,
     date: '2025-01-08',
     status: 'ongoing',
     duration: '3 weeks',
