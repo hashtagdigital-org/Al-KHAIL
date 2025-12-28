@@ -14,8 +14,8 @@ const Navigation = () => {
     { href: "#about", label: "About Us", isAnchor: true },
     { href: "/projects", label: "All Projects", isAnchor: false },
     { href: "/events", label: "Events", isAnchor: false },
+    { href: "/academy", label: "Academy", isAnchor: false },
     { href: "/blogs", label: "Blog", isAnchor: false },
-    { href: "/properties", label: "Single Property", isAnchor: false },
     { href: "/agents", label: "Our Agents", isAnchor: false },
     { href: "#contact", label: "Contact", isAnchor: true },
   ];
