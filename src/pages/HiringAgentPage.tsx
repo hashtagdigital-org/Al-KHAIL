@@ -266,7 +266,7 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ BENEFITS ═══════════════ */}
-      <section className="py-24 bg-foreground text-background">
+      <section className="py-12 sm:py-16 md:py-24 bg-foreground text-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-accent/20 text-accent border-accent/30">Benefits & Perks</Badge>
