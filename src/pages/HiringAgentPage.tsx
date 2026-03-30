@@ -159,27 +159,27 @@ const HiringAgentPage = () => {
       <Navigation />
 
       {/* ═══════════════ HERO ═══════════════ */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={hiringHero} alt="Dubai skyline" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/40" />
+          <div className="absolute inset-0 bg-gradient-to-b sm:bg-gradient-to-r from-foreground/95 via-foreground/80 to-foreground/50" />
         </div>
-        <div className="relative z-10 container mx-auto px-4 py-32 text-center">
-          <Badge className="mb-6 bg-accent/20 text-accent border-accent/30 px-4 py-1.5 text-sm backdrop-blur-sm">
-            <Briefcase className="w-4 h-4 mr-2" /> Now Hiring — Dubai's Top Real Estate Agents
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 py-20 sm:py-28 md:py-32 text-center">
+          <Badge className="mb-4 sm:mb-6 bg-accent/20 text-accent border-accent/30 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm backdrop-blur-sm">
+            <Briefcase className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" /> Now Hiring — Top Real Estate Agents
           </Badge>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-background leading-tight max-w-5xl mx-auto mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-background leading-tight max-w-5xl mx-auto mb-4 sm:mb-6">
             Join Alkhail Real Estate as a{" "}
             <span className="text-luxury-gold">Top Performing Agent</span>
           </h1>
-          <p className="text-lg md:text-xl text-background/80 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Unlock unlimited earning potential with Dubai's fastest-growing real estate brokerage. Premium leads, competitive commissions, and world-class support — your success starts here.
+          <p className="text-base sm:text-lg md:text-xl text-background/80 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-2">
+            Unlock unlimited earning potential with Dubai's fastest-growing real estate brokerage. Premium leads, competitive commissions, and world-class support.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
             <Button
               size="lg"
               onClick={scrollToForm}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-base sm:text-lg px-8 sm:px-10 py-5 sm:py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto"
             >
               Apply Now <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
@@ -187,7 +187,7 @@ const HiringAgentPage = () => {
               size="lg"
               variant="outline"
               onClick={() => document.getElementById("why-join")?.scrollIntoView({ behavior: "smooth" })}
-              className="border-background/30 text-background hover:bg-background/10 font-semibold text-lg px-10 py-6"
+              className="border-background/30 text-background hover:bg-background/10 font-semibold text-base sm:text-lg px-8 sm:px-10 py-5 sm:py-6 w-full sm:w-auto"
             >
               Learn More
             </Button>
