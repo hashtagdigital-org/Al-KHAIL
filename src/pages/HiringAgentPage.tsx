@@ -159,27 +159,27 @@ const HiringAgentPage = () => {
       <Navigation />
 
       {/* ═══════════════ HERO ═══════════════ */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={hiringHero} alt="Dubai skyline" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/40" />
+          <div className="absolute inset-0 bg-gradient-to-b sm:bg-gradient-to-r from-foreground/95 via-foreground/80 to-foreground/50" />
         </div>
-        <div className="relative z-10 container mx-auto px-4 py-32 text-center">
-          <Badge className="mb-6 bg-accent/20 text-accent border-accent/30 px-4 py-1.5 text-sm backdrop-blur-sm">
-            <Briefcase className="w-4 h-4 mr-2" /> Now Hiring — Dubai's Top Real Estate Agents
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 py-20 sm:py-28 md:py-32 text-center">
+          <Badge className="mb-4 sm:mb-6 bg-accent/20 text-accent border-accent/30 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm backdrop-blur-sm">
+            <Briefcase className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" /> Now Hiring — Top Real Estate Agents
           </Badge>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-background leading-tight max-w-5xl mx-auto mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-background leading-tight max-w-5xl mx-auto mb-4 sm:mb-6">
             Join Alkhail Real Estate as a{" "}
             <span className="text-luxury-gold">Top Performing Agent</span>
           </h1>
-          <p className="text-lg md:text-xl text-background/80 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Unlock unlimited earning potential with Dubai's fastest-growing real estate brokerage. Premium leads, competitive commissions, and world-class support — your success starts here.
+          <p className="text-base sm:text-lg md:text-xl text-background/80 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-2">
+            Unlock unlimited earning potential with Dubai's fastest-growing real estate brokerage. Premium leads, competitive commissions, and world-class support.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
             <Button
               size="lg"
               onClick={scrollToForm}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-base sm:text-lg px-8 sm:px-10 py-5 sm:py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto"
             >
               Apply Now <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
@@ -187,7 +187,7 @@ const HiringAgentPage = () => {
               size="lg"
               variant="outline"
               onClick={() => document.getElementById("why-join")?.scrollIntoView({ behavior: "smooth" })}
-              className="border-background/30 text-background hover:bg-background/10 font-semibold text-lg px-10 py-6"
+              className="border-background/30 text-background hover:bg-background/10 font-semibold text-base sm:text-lg px-8 sm:px-10 py-5 sm:py-6 w-full sm:w-auto"
             >
               Learn More
             </Button>
@@ -196,7 +196,7 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ WHY JOIN ═══════════════ */}
-      <section id="why-join" className="py-24 bg-muted/30">
+      <section id="why-join" className="py-12 sm:py-16 md:py-24 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge variant="outline" className="mb-4 border-accent/30 text-accent">Why Join Us</Badge>
@@ -207,12 +207,12 @@ const HiringAgentPage = () => {
               We provide everything you need to excel in Dubai's competitive real estate market
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {whyJoinReasons.map((reason, i) => {
               const Icon = reason.icon;
               return (
                 <Card key={i} className="group border-border/50 bg-card hover:border-accent/40 transition-all duration-500 hover:shadow-lg hover:shadow-accent/5 hover:-translate-y-1">
-                  <CardContent className="p-8">
+                  <CardContent className="p-5 sm:p-6 md:p-8">
                     <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors duration-300">
                       <Icon className="w-7 h-7 text-accent" />
                     </div>
@@ -227,9 +227,9 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ WHAT WE LOOK FOR ═══════════════ */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <section className="py-12 sm:py-16 md:py-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             <div>
               <Badge variant="outline" className="mb-4 border-accent/30 text-accent">Requirements</Badge>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
@@ -240,7 +240,7 @@ const HiringAgentPage = () => {
               </p>
               <div className="space-y-4">
                 {requirements.map((req, i) => (
-                  <div key={i} className="flex items-start gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors duration-300">
+                  <div key={i} className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors duration-300">
                     <CheckCircle2 className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
                     <span className="text-foreground font-medium">{req}</span>
                   </div>
@@ -248,7 +248,7 @@ const HiringAgentPage = () => {
               </div>
             </div>
             <div className="relative">
-              <div className="bg-gradient-to-br from-accent/10 via-luxury-gold/5 to-accent/10 rounded-3xl p-10 border border-accent/20">
+              <div className="bg-gradient-to-br from-accent/10 via-luxury-gold/5 to-accent/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 border border-accent/20">
                 <div className="text-center">
                   <Shield className="w-16 h-16 text-accent mx-auto mb-6" />
                   <h3 className="text-2xl font-bold mb-4">RERA Certified?</h3>
@@ -266,7 +266,7 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ BENEFITS ═══════════════ */}
-      <section className="py-24 bg-foreground text-background">
+      <section className="py-12 sm:py-16 md:py-24 bg-foreground text-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-accent/20 text-accent border-accent/30">Benefits & Perks</Badge>
@@ -277,11 +277,11 @@ const HiringAgentPage = () => {
               We invest heavily in our agents because your success is our success
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {benefits.map((benefit, i) => {
               const Icon = benefit.icon;
               return (
-                <div key={i} className="group p-8 rounded-2xl border border-background/10 bg-background/5 hover:bg-background/10 transition-all duration-500 hover:-translate-y-1">
+                <div key={i} className="group p-5 sm:p-6 md:p-8 rounded-2xl border border-background/10 bg-background/5 hover:bg-background/10 transition-all duration-500 hover:-translate-y-1">
                   <div className="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center mb-5">
                     <Icon className="w-7 h-7 text-accent" />
                   </div>
@@ -295,19 +295,19 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ STATS ═══════════════ */}
-      <section className="py-20 bg-accent">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-accent-foreground mb-2">
+      <section className="py-12 sm:py-16 md:py-20 bg-accent">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent-foreground mb-2">
               Why Agents Succeed With Us
             </h2>
-            <p className="text-accent-foreground/70">The numbers speak for themselves</p>
+            <p className="text-accent-foreground/70 text-sm sm:text-base">The numbers speak for themselves</p>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {stats.map((stat, i) => (
-              <div key={i} className="text-center p-6">
-                <div className="text-4xl md:text-5xl font-bold text-accent-foreground mb-2">{stat.value}</div>
-                <div className="text-accent-foreground/70 font-medium">{stat.label}</div>
+              <div key={i} className="text-center p-3 sm:p-4 md:p-6">
+                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-accent-foreground mb-1 sm:mb-2">{stat.value}</div>
+                <div className="text-accent-foreground/70 font-medium text-xs sm:text-sm md:text-base">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -315,21 +315,21 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ TESTIMONIALS ═══════════════ */}
-      <section className="py-24 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+      <section className="py-12 sm:py-16 md:py-24 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 sm:mb-16">
             <Badge variant="outline" className="mb-4 border-accent/30 text-accent">Agent Testimonials</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               Hear From Our <span className="text-accent">Top Agents</span>
             </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
               Real stories from real agents who transformed their careers with Alkhail
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {testimonials.map((t, i) => (
               <Card key={i} className="border-border/50 bg-card hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
-                <CardContent className="p-8">
+                <CardContent className="p-5 sm:p-6 md:p-8">
                   <Quote className="w-10 h-10 text-accent/30 mb-4" />
                   <p className="text-muted-foreground leading-relaxed mb-6 italic">"{t.quote}"</p>
                   <div className="flex items-center gap-1 mb-4">
@@ -350,25 +350,25 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ APPLICATION PROCESS ═══════════════ */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+      <section className="py-12 sm:py-16 md:py-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 sm:mb-16">
             <Badge variant="outline" className="mb-4 border-accent/30 text-accent">How It Works</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               Your Journey <span className="text-accent">Starts Here</span>
             </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
               A simple, transparent process to join one of Dubai's top real estate teams
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {processSteps.map((step, i) => (
               <div key={i} className="relative text-center group">
-                <div className="w-20 h-20 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors duration-300">
-                  <span className="text-2xl font-bold text-accent">{step.step}</span>
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-3 sm:mb-4 md:mb-6 group-hover:bg-accent/20 transition-colors duration-300">
+                  <span className="text-lg sm:text-xl md:text-2xl font-bold text-accent">{step.step}</span>
                 </div>
-                <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 sm:mb-3">{step.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-xs sm:text-sm md:text-base">{step.description}</p>
                 {i < processSteps.length - 1 && (
                   <ChevronRight className="hidden lg:block absolute top-10 -right-4 w-8 h-8 text-accent/30" />
                 )}
@@ -379,23 +379,23 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ APPLICATION FORM ═══════════════ */}
-      <section id="application-form" className="py-24 bg-muted/30">
-        <div className="container mx-auto px-4">
+      <section id="application-form" className="py-12 sm:py-16 md:py-24 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8 sm:mb-12">
               <Badge variant="outline" className="mb-4 border-accent/30 text-accent">
                 <UserPlus className="w-3 h-3 mr-1" /> Apply Now
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
                 Ready to <span className="text-accent">Join Us?</span>
               </h2>
-              <p className="text-muted-foreground text-lg">
+              <p className="text-muted-foreground text-base sm:text-lg">
                 Complete the form below and our HR team will reach out within 48 hours
               </p>
             </div>
 
             <Card className="shadow-xl border-border/50">
-              <CardContent className="p-8 md:p-10">
+              <CardContent className="p-4 sm:p-6 md:p-8 lg:p-10">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Full Name */}
@@ -510,23 +510,23 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ FINAL CTA ═══════════════ */}
-      <section className="py-24 bg-foreground relative overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-24 bg-foreground relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-luxury-gold rounded-full blur-[120px]" />
+          <div className="absolute top-0 left-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-accent rounded-full blur-[80px] sm:blur-[120px]" />
+          <div className="absolute bottom-0 right-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-luxury-gold rounded-full blur-[80px] sm:blur-[120px]" />
         </div>
-        <div className="relative container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-background mb-6">
+        <div className="relative container mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-background mb-4 sm:mb-6">
             Take Your Real Estate Career to the
             <span className="text-luxury-gold"> Next Level</span>
           </h2>
-          <p className="text-background/60 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-background/60 text-base sm:text-lg max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed">
             Join a team that's redefining real estate excellence in Dubai. Your next chapter of growth, earnings, and success starts with Alkhail Real Estate.
           </p>
           <Button
             size="lg"
             onClick={scrollToForm}
-            className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-12 py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+            className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto"
           >
             Apply Now <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
