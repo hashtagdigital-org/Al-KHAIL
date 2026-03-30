@@ -16,6 +16,7 @@ import BlogsPage from "./pages/BlogsPage";
 import BlogPage from "./pages/BlogPage";
 import AcademyPage from "./pages/AcademyPage";
 import CourseDetailPage from "./pages/CourseDetailPage";
+import HiringAgentPage from "./pages/HiringAgentPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/event/:slug" element={<EventLanding />} />
             <Route path="/property/:slug" element={<PropertyLanding />} />
             <Route path="/agent/:agentId" element={<AgentLanding />} />
+            <Route path="/careers" element={<HiringAgentPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
