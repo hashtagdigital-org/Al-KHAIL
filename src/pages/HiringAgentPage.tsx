@@ -295,19 +295,19 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ STATS ═══════════════ */}
-      <section className="py-20 bg-accent">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-accent-foreground mb-2">
+      <section className="py-12 sm:py-16 md:py-20 bg-accent">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent-foreground mb-2">
               Why Agents Succeed With Us
             </h2>
-            <p className="text-accent-foreground/70">The numbers speak for themselves</p>
+            <p className="text-accent-foreground/70 text-sm sm:text-base">The numbers speak for themselves</p>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {stats.map((stat, i) => (
-              <div key={i} className="text-center p-6">
-                <div className="text-4xl md:text-5xl font-bold text-accent-foreground mb-2">{stat.value}</div>
-                <div className="text-accent-foreground/70 font-medium">{stat.label}</div>
+              <div key={i} className="text-center p-3 sm:p-4 md:p-6">
+                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-accent-foreground mb-1 sm:mb-2">{stat.value}</div>
+                <div className="text-accent-foreground/70 font-medium text-xs sm:text-sm md:text-base">{stat.label}</div>
               </div>
             ))}
           </div>
