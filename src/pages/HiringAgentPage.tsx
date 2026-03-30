@@ -364,11 +364,11 @@ const HiringAgentPage = () => {
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {processSteps.map((step, i) => (
               <div key={i} className="relative text-center group">
-                <div className="w-20 h-20 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors duration-300">
-                  <span className="text-2xl font-bold text-accent">{step.step}</span>
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-3 sm:mb-4 md:mb-6 group-hover:bg-accent/20 transition-colors duration-300">
+                  <span className="text-lg sm:text-xl md:text-2xl font-bold text-accent">{step.step}</span>
                 </div>
-                <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 sm:mb-3">{step.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-xs sm:text-sm md:text-base">{step.description}</p>
                 {i < processSteps.length - 1 && (
                   <ChevronRight className="hidden lg:block absolute top-10 -right-4 w-8 h-8 text-accent/30" />
                 )}
