@@ -207,12 +207,12 @@ const HiringAgentPage = () => {
               We provide everything you need to excel in Dubai's competitive real estate market
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {whyJoinReasons.map((reason, i) => {
               const Icon = reason.icon;
               return (
                 <Card key={i} className="group border-border/50 bg-card hover:border-accent/40 transition-all duration-500 hover:shadow-lg hover:shadow-accent/5 hover:-translate-y-1">
-                  <CardContent className="p-8">
+                  <CardContent className="p-5 sm:p-6 md:p-8">
                     <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors duration-300">
                       <Icon className="w-7 h-7 text-accent" />
                     </div>
