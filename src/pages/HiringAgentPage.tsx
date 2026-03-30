@@ -196,7 +196,7 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ WHY JOIN ═══════════════ */}
-      <section id="why-join" className="py-24 bg-muted/30">
+      <section id="why-join" className="py-12 sm:py-16 md:py-24 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge variant="outline" className="mb-4 border-accent/30 text-accent">Why Join Us</Badge>
