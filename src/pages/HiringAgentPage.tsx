@@ -248,7 +248,7 @@ const HiringAgentPage = () => {
               </div>
             </div>
             <div className="relative">
-              <div className="bg-gradient-to-br from-accent/10 via-luxury-gold/5 to-accent/10 rounded-3xl p-10 border border-accent/20">
+              <div className="bg-gradient-to-br from-accent/10 via-luxury-gold/5 to-accent/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 border border-accent/20">
                 <div className="text-center">
                   <Shield className="w-16 h-16 text-accent mx-auto mb-6" />
                   <h3 className="text-2xl font-bold mb-4">RERA Certified?</h3>
