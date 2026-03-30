@@ -16,6 +16,7 @@ import BlogsPage from "./pages/BlogsPage";
 import BlogPage from "./pages/BlogPage";
 import AcademyPage from "./pages/AcademyPage";
 import CourseDetailPage from "./pages/CourseDetailPage";
+import HiringAgentPage from "./pages/HiringAgentPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
