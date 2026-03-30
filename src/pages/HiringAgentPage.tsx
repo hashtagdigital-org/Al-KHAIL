@@ -379,23 +379,23 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ APPLICATION FORM ═══════════════ */}
-      <section id="application-form" className="py-24 bg-muted/30">
-        <div className="container mx-auto px-4">
+      <section id="application-form" className="py-12 sm:py-16 md:py-24 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8 sm:mb-12">
               <Badge variant="outline" className="mb-4 border-accent/30 text-accent">
                 <UserPlus className="w-3 h-3 mr-1" /> Apply Now
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
                 Ready to <span className="text-accent">Join Us?</span>
               </h2>
-              <p className="text-muted-foreground text-lg">
+              <p className="text-muted-foreground text-base sm:text-lg">
                 Complete the form below and our HR team will reach out within 48 hours
               </p>
             </div>
 
             <Card className="shadow-xl border-border/50">
-              <CardContent className="p-8 md:p-10">
+              <CardContent className="p-4 sm:p-6 md:p-8 lg:p-10">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Full Name */}
