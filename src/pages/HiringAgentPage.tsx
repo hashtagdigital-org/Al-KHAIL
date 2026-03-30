@@ -227,9 +227,9 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ WHAT WE LOOK FOR ═══════════════ */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <section className="py-12 sm:py-16 md:py-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             <div>
               <Badge variant="outline" className="mb-4 border-accent/30 text-accent">Requirements</Badge>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
