@@ -240,7 +240,7 @@ const HiringAgentPage = () => {
               </p>
               <div className="space-y-4">
                 {requirements.map((req, i) => (
-                  <div key={i} className="flex items-start gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors duration-300">
+                  <div key={i} className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors duration-300">
                     <CheckCircle2 className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
                     <span className="text-foreground font-medium">{req}</span>
                   </div>
