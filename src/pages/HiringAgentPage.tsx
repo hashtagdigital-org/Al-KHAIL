@@ -510,23 +510,23 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ FINAL CTA ═══════════════ */}
-      <section className="py-24 bg-foreground relative overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-24 bg-foreground relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-luxury-gold rounded-full blur-[120px]" />
+          <div className="absolute top-0 left-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-accent rounded-full blur-[80px] sm:blur-[120px]" />
+          <div className="absolute bottom-0 right-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-luxury-gold rounded-full blur-[80px] sm:blur-[120px]" />
         </div>
-        <div className="relative container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-background mb-6">
+        <div className="relative container mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-background mb-4 sm:mb-6">
             Take Your Real Estate Career to the
             <span className="text-luxury-gold"> Next Level</span>
           </h2>
-          <p className="text-background/60 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-background/60 text-base sm:text-lg max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed">
             Join a team that's redefining real estate excellence in Dubai. Your next chapter of growth, earnings, and success starts with Alkhail Real Estate.
           </p>
           <Button
             size="lg"
             onClick={scrollToForm}
-            className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-12 py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+            className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto"
           >
             Apply Now <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
