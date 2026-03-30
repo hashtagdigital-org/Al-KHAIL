@@ -315,21 +315,21 @@ const HiringAgentPage = () => {
       </section>
 
       {/* ═══════════════ TESTIMONIALS ═══════════════ */}
-      <section className="py-24 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+      <section className="py-12 sm:py-16 md:py-24 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 sm:mb-16">
             <Badge variant="outline" className="mb-4 border-accent/30 text-accent">Agent Testimonials</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               Hear From Our <span className="text-accent">Top Agents</span>
             </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
               Real stories from real agents who transformed their careers with Alkhail
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {testimonials.map((t, i) => (
               <Card key={i} className="border-border/50 bg-card hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
-                <CardContent className="p-8">
+                <CardContent className="p-5 sm:p-6 md:p-8">
                   <Quote className="w-10 h-10 text-accent/30 mb-4" />
                   <p className="text-muted-foreground leading-relaxed mb-6 italic">"{t.quote}"</p>
                   <div className="flex items-center gap-1 mb-4">
